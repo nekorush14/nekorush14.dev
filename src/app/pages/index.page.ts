@@ -1,6 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { siGithub, siMisskey, siWantedly, siX } from 'simple-icons';
 
@@ -17,7 +16,7 @@ interface SocialLink {
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink, NgOptimizedImage],
+  imports: [NgOptimizedImage],
   templateUrl: './index.page.html',
   styleUrl: './index.page.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
