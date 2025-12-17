@@ -1,0 +1,104 @@
+<!-- Desktop Navigation Rail -->
+<nav
+  class="nav-rail"
+  aria-label="Main navigation"
+>
+  <!-- Logo/Brand -->
+  <!-- <a
+    routerLink="/"
+    class="nav-brand"
+    aria-label="Home"
+  >
+    <span class="nav-brand-text">N</span>
+  </a> -->
+
+  <!-- Navigation Items -->
+  <div class="nav-items">
+    @for (item of navItems; track item.path) {
+      @if (item.disabled) {
+        <span
+          class="nav-item disabled"
+          [attr.aria-label]="item.label"
+          aria-disabled="true"
+        >
+          <span class="nav-item-indicator">
+            <span class="material-symbols-outlined nav-icon" aria-hidden="true">
+              {{ item.icon }}
+            </span>
+          </span>
+          <span class="nav-label">{{ item.label }}</span>
+        </span>
+      } @else {
+        <a
+          [routerLink]="item.path"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: item.path === '/' }"
+          class="nav-item"
+          [attr.aria-label]="item.label"
+        >
+          <span class="nav-item-indicator">
+            <span class="material-symbols-outlined nav-icon" aria-hidden="true">
+              {{ item.icon }}
+            </span>
+          </span>
+          <span class="nav-label">{{ item.label }}</span>
+        </a>
+      }
+    }
+  </div>
+
+  <!-- Spacer -->
+  <div class="nav-spacer"></div>
+
+  <!-- Theme Toggle Button -->
+  <button
+    type="button"
+    class="nav-item theme-toggle"
+    (click)="toggleTheme()"
+    [attr.aria-label]="themeService.isDark() ? 'Switch to light mode' : 'Switch to dark mode'"
+  >
+    <span class="nav-item-indicator">
+      <span class="material-symbols-outlined nav-icon" aria-hidden="true">
+        {{ themeService.isDark() ? 'light_mode' : 'dark_mode' }}
+      </span>
+    </span>
+  </button>
+</nav>
+
+<!-- Mobile Bottom Navigation -->
+<nav
+  class="nav-bottom"
+  aria-label="Main navigation"
+>
+  @for (item of navItems; track item.path) {
+    @if (item.disabled) {
+      <span
+        class="nav-bottom-item disabled"
+        [attr.aria-label]="item.label"
+        aria-disabled="true"
+      >
+        <span class="nav-bottom-indicator">
+          <span class="material-symbols-outlined nav-bottom-icon" aria-hidden="true">
+            {{ item.icon }}
+          </span>
+        </span>
+        <span class="nav-bottom-label">{{ item.label }}</span>
+      </span>
+    } @else {
+      <a
+        [routerLink]="item.path"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: item.path === '/' }"
+        class="nav-bottom-item"
+        [attr.aria-label]="item.label"
+      >
+        <span class="nav-bottom-indicator">
+          <span class="material-symbols-outlined nav-bottom-icon" aria-hidden="true">
+            {{ item.icon }}
+          </span>
+        </span>
+        <span class="nav-bottom-label">{{ item.label }}</span>
+      </a>
+    }
+  }
+</nav>

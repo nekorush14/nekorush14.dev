@@ -1,26 +1,72 @@
 # nekorush14.dev
 
-This project was generated with [Analog](https://analogjs.org), the fullstack meta-framework for Angular.
+Personal website and blog of nekorush14.
+
+## Tech Stack
+
+- [Angular](https://angular.dev)
+- [Analogjs](https://analogjs.org) - Fullstack meta-framework for Angular
+- [TailwindCSS](https://tailwindcss.com)
+- [Vite](https://vitejs.dev)
+- [Vitest](https://vitest.dev) - Testing framework
+- [marked](https://marked.js.org) + [Shiki](https://shiki.style) - Markdown rendering
+
+## Requirements
+
+- Node.js >= 20.19.1
 
 ## Setup
 
-Run `npm install` to install the application dependencies.
+```bash
+npm install
+```
 
 ## Development
 
-Run `npm start` for a dev server. Navigate to `http://localhost:5173/`. The application automatically reloads if you change any of the source files.
+```bash
+npm start
+```
+
+Navigate to `http://localhost:5173/`. The application automatically reloads if you change any of the source files.
 
 ## Build
 
-Run `npm run build` to build the client/server project. The client build artifacts are located in the `dist/analog/public` directory. The server for the API build artifacts are located in the `dist/analog/server` directory.
+```bash
+npm run build
+```
+
+Build artifacts are located in:
+
+- Client: `dist/analog/public`
+- Server: `dist/analog/server`
+
+## Preview
+
+```bash
+npm run preview
+```
 
 ## Test
 
-Run `npm run test` to run unit tests with [Vitest](https://vitest.dev).
+```bash
+npm run test
+```
 
-## Community
+## Project Structure
 
-- Visit and Star the [GitHub Repo](https://github.com/analogjs/analog)
-- Join the [Discord](https://chat.analogjs.org)
-- Follow us on [Twitter](https://twitter.com/analogjs)
-- Become a [Sponsor](https://github.com/sponsors/brandonroberts)
+```
+src/
+├── app/
+│   ├── core/           # Core module (services, components, models)
+│   └── pages/          # Page components
+│       ├── index.page.ts
+│       └── blog/
+├── content/
+│   └── blog/           # Blog posts (Markdown)
+└── server/
+    └── routes/api/     # API endpoints
+```
+
+## LICENSE
+
+This software is released under the MIT License, see LICENSE file.

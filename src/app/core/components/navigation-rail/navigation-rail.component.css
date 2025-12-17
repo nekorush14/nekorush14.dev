@@ -1,0 +1,293 @@
+/* =============================================================================
+ * Navigation Rail Component Styles
+ * Material Design 3 Expressive Navigation Rail
+ * ============================================================================= */
+
+:host {
+  display: contents;
+}
+
+/* =============================================================================
+ * Desktop Navigation Rail
+ * ============================================================================= */
+.nav-rail {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  width: 80px;
+  height: 100vh;
+  padding: 1rem 0.75rem;
+  background-color: var(--color-surface-container);
+  border-right: 1px solid var(--color-outline-variant);
+}
+
+@media (min-width: 768px) {
+  .nav-rail {
+    display: flex;
+  }
+}
+
+/* Brand/Logo */
+.nav-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 1.5rem;
+  border-radius: var(--radius-xl);
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all var(--duration-normal) var(--ease-spring);
+}
+
+.nav-brand:hover {
+  transform: scale(1.05);
+  box-shadow: var(--shadow-md);
+}
+
+.nav-brand:active {
+  transform: scale(0.98);
+}
+
+.nav-brand-text {
+  line-height: 1;
+}
+
+/* Navigation Items Container */
+.nav-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Navigation Item */
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  border: none;
+  background: none;
+  color: var(--color-on-surface-variant);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+.nav-item:hover {
+  color: var(--color-on-surface);
+}
+
+.nav-item.active {
+  color: var(--color-on-surface);
+}
+
+/* Navigation Item Indicator (pill shape) */
+.nav-item-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  background-color: transparent;
+  transition: all var(--duration-normal) var(--ease-spring);
+}
+
+.nav-item:hover .nav-item-indicator {
+  background-color: var(--color-surface-container-high);
+}
+
+.nav-item.active .nav-item-indicator {
+  background-color: var(--color-primary-light);
+  color: var(--color-on-primary);
+}
+
+/* Navigation Icon */
+.nav-icon {
+  font-size: 24px;
+  line-height: 1;
+  transition:
+    transform var(--duration-normal) var(--ease-spring),
+    font-variation-settings var(--duration-normal) var(--ease-standard);
+}
+
+.nav-item.active .nav-icon {
+  font-variation-settings: 'FILL' 1;
+}
+
+.nav-item:hover .nav-icon {
+  transform: scale(1.1);
+}
+
+.nav-item:active .nav-icon {
+  transform: scale(0.95);
+}
+
+/* Navigation Label */
+.nav-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+/* Disabled Navigation Item */
+.nav-item.disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.nav-item.disabled:hover {
+  color: var(--color-on-surface-variant);
+}
+
+.nav-item.disabled:hover .nav-item-indicator {
+  background-color: transparent;
+}
+
+.nav-item.disabled:hover .nav-icon {
+  transform: none;
+}
+
+/* Spacer */
+.nav-spacer {
+  flex: 1;
+}
+
+/* Theme Toggle */
+.theme-toggle {
+  margin-top: auto;
+}
+
+.theme-toggle .nav-item-indicator {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+}
+
+/* =============================================================================
+ * Mobile Bottom Navigation
+ * ============================================================================= */
+.nav-bottom {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 80px;
+  padding: 0 0.5rem;
+  padding-bottom: env(safe-area-inset-bottom);
+  background-color: var(--color-surface-container);
+  border-top: 1px solid var(--color-outline-variant);
+}
+
+@media (min-width: 768px) {
+  .nav-bottom {
+    display: none;
+  }
+}
+
+/* Bottom Navigation Item */
+.nav-bottom-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.5rem;
+  border: none;
+  background: none;
+  color: var(--color-on-surface-variant);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+.nav-bottom-item:hover {
+  color: var(--color-on-surface);
+}
+
+.nav-bottom-item.active {
+  color: var(--color-on-surface);
+}
+
+/* Bottom Navigation Indicator */
+.nav-bottom-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  background-color: transparent;
+  transition: all var(--duration-normal) var(--ease-spring);
+}
+
+.nav-bottom-item:hover .nav-bottom-indicator {
+  background-color: var(--color-surface-container-high);
+}
+
+.nav-bottom-item.active .nav-bottom-indicator {
+  background-color: var(--color-primary-light);
+  color: var(--color-on-primary);
+}
+
+/* Bottom Navigation Icon */
+.nav-bottom-icon {
+  font-size: 24px;
+  line-height: 1;
+  transition:
+    transform var(--duration-normal) var(--ease-spring),
+    font-variation-settings var(--duration-normal) var(--ease-standard);
+}
+
+.nav-bottom-item.active .nav-bottom-icon {
+  font-variation-settings: 'FILL' 1;
+}
+
+.nav-bottom-item:hover .nav-bottom-icon {
+  transform: scale(1.1);
+}
+
+.nav-bottom-item:active .nav-bottom-icon {
+  transform: scale(0.95);
+}
+
+/* Bottom Navigation Label */
+.nav-bottom-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+/* Disabled Bottom Navigation Item */
+.nav-bottom-item.disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.nav-bottom-item.disabled:hover {
+  color: var(--color-on-surface-variant);
+}
+
+.nav-bottom-item.disabled:hover .nav-bottom-indicator {
+  background-color: transparent;
+}
+
+.nav-bottom-item.disabled:hover .nav-bottom-icon {
+  transform: none;
+}

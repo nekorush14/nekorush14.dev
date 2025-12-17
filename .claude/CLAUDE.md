@@ -26,6 +26,19 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 - Use `NgOptimizedImage` for all static images.
   - `NgOptimizedImage` does not work for inline base64 images.
 
+## Analogjs Best Practices
+
+- Only `.page.ts` files are used as routes; always use this suffix for page components
+- Export page components as the default export
+- Use `routeMeta` export to define route metadata (title, guards, SSR options)
+- Prefer `withComponentInputBinding()` to bind route params as inputs over `ActivatedRoute`
+- Use dynamic routes with bracket syntax (e.g., `[slug].page.ts`)
+- Wrap folder names in parentheses for route groups without URL segments
+- Use `contentFilesResource` and `contentFileResource` for reactive content handling
+- Use `HttpClient` with `requestContextInterceptor` for data fetching
+- Place `requestContextInterceptor` as the last interceptor in the array
+- Configure `provideServerContext` in `main.server.ts` for SSR context access
+
 ## Components
 
 - Keep components small and focused on a single responsibility

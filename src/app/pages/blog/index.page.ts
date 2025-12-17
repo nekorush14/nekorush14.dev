@@ -1,35 +1,27 @@
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { injectContentFiles } from '@analogjs/content';
+import { RouteMeta } from '@analogjs/router';
+import PostAttributes from 'src/app/core/models/post-attributes';
 
-import PostAttributes from '../../post-attributes';
+// Redirect to home while blog is disabled
+export const routeMeta: RouteMeta = {
+  canActivate: [
+    () => {
+      const router = inject(Router);
+      return router.createUrlTree(['/']);
+    },
+  ],
+};
 
 @Component({
-  selector: 'app-blog',
+  selector: 'app-blog-index',
   imports: [RouterLink],
-  template: `
-    <h1>Blog Archive</h1>
-
-    @for (post of posts; track post.attributes.slug) {
-    <a [routerLink]="['/blog/', post.attributes.slug]">
-      <h2 class="post__title">{{ post.attributes.title }}</h2>
-      <p class="post__desc">{{ post.attributes.description }}</p>
-    </a>
-    }
-  `,
-  styles: `
-    a {
-      text-align: left;
-      display: block;
-      margin-bottom: 2rem;
-    }
-
-    .post__title,
-    .post__desc {
-      margin: 0;
-    }
-  `,
+  templateUrl: './index.page.html',
+  styleUrl: './index.page.css',
 })
-export default class Blog {
-  readonly posts = injectContentFiles<PostAttributes>();
+export default class BlogIndexPage {
+  readonly posts = injectContentFiles<PostAttributes>((contentFile) =>
+    contentFile.filename.includes('src/content/blog/')
+  );
 }

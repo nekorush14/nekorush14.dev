@@ -1,11 +1,11 @@
 /// <reference types="vitest" />
 
 import { defineConfig } from 'vite';
-import analog from '@analogjs/platform';
+import analog, { type PrerenderContentFile } from '@analogjs/platform';
 import tailwindcss from '@tailwindcss/vite';
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => ({
+export default defineConfig(() => ({
   build: {
     target: ['es2020'],
   },
@@ -16,12 +16,40 @@ export default defineConfig(({ mode }) => ({
     analog({
       content: {
         highlighter: 'shiki',
+        shikiOptions: {
+          highlight: {
+            // Use tokyo-night theme for both light and dark modes
+            theme: 'tokyo-night',
+            // Add data-language attribute to pre element
+            transformers: [
+              {
+                name: 'add-language-attribute',
+                pre(node) {
+                  // Add data-language attribute with the language name
+                  node.properties['data-language'] = this.options.lang || 'code';
+                },
+              },
+            ],
+          },
+          highlighter: {
+            // Add tokyo-night theme
+            additionalThemes: ['tokyo-night'],
+          },
+        },
       },
       prerender: {
-        routes: ['/blog', '/blog/2022-12-27-my-first-post'],
+        routes: async () => [
+          '/',
+          '/blog',
+          {
+            contentDir: 'src/content/blog',
+            transform: (file: PrerenderContentFile) => `/blog/${file.attributes['slug']}`,
+          },
+        ],
       },
+      ssr: true,
     }),
-    tailwindcss()
+    tailwindcss(),
   ],
   test: {
     globals: true,
