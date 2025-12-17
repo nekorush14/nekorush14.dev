@@ -21,6 +21,22 @@ Personal website and blog of nekorush14.
 npm install
 ```
 
+### Environment Variables
+
+Copy `.env.example` to `.env.local` and configure:
+
+```bash
+cp .env.example .env.local
+```
+
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `VITE_GA_MEASUREMENT_ID` | Google Analytics Measurement ID (G-XXXXXXXXXX) | No |
+
+Get your GA Measurement ID from:
+- Firebase Console > Project Settings > Integrations > Google Analytics
+- Google Analytics > Admin > Data Streams > Web
+
 ## Development
 
 ```bash
@@ -57,14 +73,40 @@ npm run test
 ```
 src/
 ├── app/
-│   ├── core/           # Core module (services, components, models)
-│   └── pages/          # Page components
-│       ├── index.page.ts
-│       └── blog/
+│   ├── core/
+│   │   ├── components/     # Shared components (navigation, cookie consent)
+│   │   ├── models/         # Type definitions
+│   │   └── services/       # Services (theme, cookie consent)
+│   └── pages/              # Page components (Analogjs file-based routing)
+│       ├── index.page.ts   # Home page
+│       ├── privacy.page.ts # Privacy policy
+│       └── blog/           # Blog pages
 ├── content/
-│   └── blog/           # Blog posts (Markdown)
+│   └── blog/               # Blog posts (Markdown)
 └── server/
-    └── routes/api/     # API endpoints
+    └── routes/api/         # API endpoints
+```
+
+## Deployment
+
+### Firebase Hosting
+
+This project is configured for Firebase Hosting with Google Analytics.
+
+### GitHub Actions CI/CD
+
+Set the following secrets in your repository (Settings > Secrets and variables > Actions):
+
+| Secret | Description |
+|--------|-------------|
+| `VITE_GA_MEASUREMENT_ID` | Google Analytics Measurement ID |
+
+Example workflow:
+
+```yaml
+- run: npm run build
+  env:
+    VITE_GA_MEASUREMENT_ID: ${{ secrets.VITE_GA_MEASUREMENT_ID }}
 ```
 
 ## LICENSE

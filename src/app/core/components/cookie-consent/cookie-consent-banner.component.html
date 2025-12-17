@@ -1,0 +1,39 @@
+@if (showBanner()) {
+  <div
+    class="cookie-banner"
+    role="dialog"
+    aria-labelledby="cookie-banner-title"
+    aria-describedby="cookie-banner-description"
+  >
+    <div class="banner-content">
+      <div class="banner-text">
+        <h2 id="cookie-banner-title" class="banner-title">Cookie の使用について</h2>
+        <p id="cookie-banner-description" class="banner-description">
+          このサイトでは、サイトの機能向上と利用状況の分析のために Cookie
+          を使用しています。詳細は
+          <a routerLink="/privacy" class="privacy-link">プライバシーポリシー</a>
+          をご確認ください。
+        </p>
+      </div>
+      <div class="banner-actions">
+        <button type="button" class="btn-primary" (click)="acceptAll()">
+          同意する
+        </button>
+        <button type="button" class="btn-secondary" (click)="openSettings()">
+          詳細設定
+        </button>
+        <button type="button" class="btn-secondary" (click)="rejectAll()">
+          拒否
+        </button>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- Settings Modal -->
+<app-cookie-settings-modal
+  [isOpen]="consentService.showSettings()"
+  [analyticsEnabled]="currentAnalytics()"
+  (closed)="closeSettings()"
+  (saved)="saveSettings($event)"
+/>

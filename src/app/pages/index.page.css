@@ -23,15 +23,15 @@
 }
 
 .color-swatch-orange {
-  background-color: #df9e4f;
+  background-color: #fca605;
 }
 
 .color-swatch-lavender {
   background-color: #a5a6f2;
 }
 
-.color-swatch-yellow {
-  background-color: #f2e33f;
+.color-swatch-sky {
+  background-color: #b1c9ee;
 }
 
 /* ---------------------------------------------------------------------------
@@ -186,12 +186,10 @@
   background-color: var(--color-surface-container-high);
   border-color: var(--color-primary);
   color: var(--color-primary);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
 }
 
 .social-link:active {
-  transform: translateY(0) scale(0.98);
+  transform: scale(0.98);
 }
 
 .social-link:focus-visible {

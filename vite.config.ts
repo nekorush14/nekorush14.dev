@@ -41,6 +41,7 @@ export default defineConfig(() => ({
         routes: async () => [
           '/',
           '/blog',
+          '/privacy',
           {
             contentDir: 'src/content/blog',
             transform: (file: PrerenderContentFile) => `/blog/${file.attributes['slug']}`,

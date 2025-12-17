@@ -1,11 +1,12 @@
 import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { NavigationRailComponent } from './core/components/navigation-rail/navigation-rail.component';
+import { CookieConsentBannerComponent } from './core/components/cookie-consent/cookie-consent-banner.component';
 import { ThemeService } from './core/services/theme.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NavigationRailComponent],
+  imports: [RouterLink, RouterOutlet, NavigationRailComponent, CookieConsentBannerComponent],
   template: `
     <div class="app-layout">
       <!-- Mobile Theme Toggle -->
@@ -30,8 +31,13 @@ import { ThemeService } from './core/services/theme.service';
 
       <!-- Footer -->
       <footer class="site-footer">
-        <p>&copy; {{ currentYear }} nekorush14. All rights reserved.</p>
+        <a routerLink="/privacy" class="footer-link">Privacy Policy</a>
+        <span class="footer-separator" aria-hidden="true">|</span>
+        <p class="footer-copyright">&copy; {{ currentYear }} nekorush14. All rights reserved.</p>
       </footer>
+
+      <!-- Cookie Consent Banner -->
+      <app-cookie-consent-banner />
     </div>
   `,
   styles: `
@@ -109,16 +115,41 @@ import { ThemeService } from './core/services/theme.service';
 
     /* Footer */
     .site-footer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
       flex-shrink: 0;
       padding: 2rem 1rem;
-      text-align: center;
       color: var(--color-on-surface-variant);
       font-size: 0.875rem;
       /* Mobile: above bottom navigation */
       margin-bottom: 80px;
     }
 
-    .site-footer p {
+    .footer-link {
+      color: var(--color-on-surface-variant);
+      text-decoration: none;
+      transition: color var(--duration-fast) var(--ease-standard);
+    }
+
+    .footer-link:hover {
+      color: var(--color-primary);
+    }
+
+    .footer-link:focus-visible {
+      outline: none;
+      box-shadow:
+        0 0 0 2px var(--color-surface),
+        0 0 0 4px var(--color-primary);
+      border-radius: var(--radius-sm);
+    }
+
+    .footer-separator {
+      color: var(--color-outline-variant);
+    }
+
+    .footer-copyright {
       margin: 0;
     }
 

@@ -1,0 +1,92 @@
+@if (isOpen()) {
+  <div
+    class="cookie-modal-overlay"
+    role="presentation"
+    (click)="onOverlayClick($event)"
+  >
+    <div
+      class="cookie-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="cookie-settings-title"
+    >
+      <!-- Header -->
+      <div class="modal-header">
+        <h2 id="cookie-settings-title" class="modal-title">Cookie 設定</h2>
+        <button
+          type="button"
+          class="close-button"
+          aria-label="閉じる"
+          (click)="onClose()"
+        >
+          <span class="material-symbols-outlined" aria-hidden="true">close</span>
+        </button>
+      </div>
+
+      <!-- Content -->
+      <div class="modal-content">
+        <p class="modal-description">
+          このサイトでは、サイトの機能を提供するために必須の Cookie
+          と、サイトの改善のための分析 Cookie を使用しています。
+        </p>
+
+        <!-- Essential Cookies -->
+        <div class="cookie-category">
+          <div class="category-header">
+            <div class="category-info">
+              <h3 class="category-title">必須 Cookie</h3>
+              <p class="category-description">
+                サイトの基本機能 (テーマ設定の保存など)
+                に必要な Cookie です。無効にすることはできません。
+              </p>
+            </div>
+            <button
+              type="button"
+              class="toggle-switch active"
+              role="switch"
+              aria-checked="true"
+              aria-label="必須 Cookie (常に有効)"
+              disabled
+            >
+              <span class="toggle-thumb"></span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Analytics Cookies -->
+        <div class="cookie-category">
+          <div class="category-header">
+            <div class="category-info">
+              <h3 class="category-title">分析 Cookie</h3>
+              <p class="category-description">
+                Google Analytics を使用してサイトの利用状況を分析し、
+                改善に役立てます。個人を特定する情報は収集しません。
+              </p>
+            </div>
+            <button
+              type="button"
+              class="toggle-switch"
+              [class.active]="localAnalytics()"
+              role="switch"
+              [attr.aria-checked]="localAnalytics()"
+              aria-label="分析 Cookie"
+              (click)="toggleAnalytics()"
+            >
+              <span class="toggle-thumb"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" (click)="onClose()">
+          キャンセル
+        </button>
+        <button type="button" class="btn-primary" (click)="onSave()">
+          設定を保存
+        </button>
+      </div>
+    </div>
+  </div>
+}
