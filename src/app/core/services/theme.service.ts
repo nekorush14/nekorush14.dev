@@ -64,14 +64,14 @@ export class ThemeService {
 
   private getInitialTheme(): Theme {
     if (!this.isBrowser) {
-      return 'system';
+      return 'dark';
     }
 
     const stored = localStorage.getItem('theme') as Theme | null;
     if (stored && ['light', 'dark', 'system'].includes(stored)) {
       return stored;
     }
-    return 'system';
+    return 'dark';
   }
 
   private getSystemPreference(): boolean {
