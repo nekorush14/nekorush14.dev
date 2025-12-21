@@ -49,7 +49,7 @@ export default class HomePage {
     },
     {
       name: 'Misskey.io',
-      url: 'https://misskey.io/@l10es',
+      url: 'https://misskey.io/@nekorush14',
       path: siMisskey.path,
       viewBox: '0 0 24 24',
     },
