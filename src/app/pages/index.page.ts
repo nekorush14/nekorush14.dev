@@ -1,8 +1,12 @@
 import { NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { RouteMeta } from '@analogjs/router';
 import { faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { siGithub, siMisskey, siWantedly, siX } from 'simple-icons';
 
+export const routeMeta: RouteMeta = {
+  title: 'nekorush14.dev',
+};
 
 /**
  * Represents a social media link with icon
