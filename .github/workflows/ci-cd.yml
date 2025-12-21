@@ -122,6 +122,9 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
+    environment:
+      name: preview
+      url: ${{ steps.deploy.outputs.details_url }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -133,6 +136,7 @@ jobs:
           path: dist/analog/public
 
       - name: Deploy Preview
+        id: deploy
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
@@ -146,6 +150,9 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     permissions:
       contents: read
+    environment:
+      name: production
+      url: https://nekorush14.dev
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
