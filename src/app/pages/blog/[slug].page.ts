@@ -1,9 +1,11 @@
-import { Component, afterNextRender, inject } from '@angular/core';
+import { Component, afterNextRender, effect, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { Router, RouterLink } from '@angular/router';
 import { AsyncPipe, DOCUMENT } from '@angular/common';
 import { injectContent, MarkdownComponent } from '@analogjs/content';
 import { RouteMeta } from '@analogjs/router';
 import PostAttributes from 'src/app/core/models/post-attributes';
+import { OgpService } from '../../core/services/ogp.service';
 
 // Redirect to home while blog is disabled
 export const routeMeta: RouteMeta = {
@@ -23,13 +25,31 @@ export const routeMeta: RouteMeta = {
 })
 export default class BlogPostPage {
   private readonly document = inject(DOCUMENT);
+  private readonly ogpService = inject(OgpService);
 
   readonly post$ = injectContent<PostAttributes>({
     param: 'slug',
     subdirectory: 'blog',
   });
 
+  private readonly post = toSignal(this.post$);
+
   constructor() {
+    // Set OGP metadata when post data is available
+    effect(() => {
+      const post = this.post();
+      if (post?.attributes) {
+        const attrs = post.attributes;
+        this.ogpService.updateMetadata({
+          title: `${attrs.title} | nekorush14.dev`,
+          description: attrs.description,
+          url: `https://nekorush14.dev/blog/${attrs.slug}`,
+          image: attrs.coverImage,
+          type: 'article',
+        });
+      }
+    });
+
     afterNextRender(() => {
       // Wait for markdown content to render
       setTimeout(() => this.enhanceCodeBlocks(), 100);

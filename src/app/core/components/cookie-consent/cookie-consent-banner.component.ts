@@ -3,7 +3,9 @@ import {
   ChangeDetectionStrategy,
   inject,
   computed,
+  PLATFORM_ID,
 } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { CookieConsentService } from '../../services/cookie-consent.service';
 import { CookieSettingsModalComponent } from './cookie-settings-modal.component';
@@ -16,10 +18,14 @@ import { CookieSettingsModalComponent } from './cookie-settings-modal.component'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CookieConsentBannerComponent {
+  private readonly platformId = inject(PLATFORM_ID);
+  private readonly isBrowser = isPlatformBrowser(this.platformId);
   protected readonly consentService = inject(CookieConsentService);
 
-  /** Show banner when consent has not been given */
-  protected readonly showBanner = computed(() => !this.consentService.hasConsent());
+  /** Show banner only in browser when consent has not been given */
+  protected readonly showBanner = computed(
+    () => this.isBrowser && !this.consentService.hasConsent()
+  );
 
   /** Current analytics preference for modal */
   protected readonly currentAnalytics = computed(
