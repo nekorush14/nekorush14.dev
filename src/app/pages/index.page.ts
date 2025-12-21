@@ -1,8 +1,9 @@
 import { NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { RouteMeta } from '@analogjs/router';
 import { faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { siGithub, siMisskey, siWantedly, siX } from 'simple-icons';
+import { OgpService } from '../core/services/ogp.service';
 
 export const routeMeta: RouteMeta = {
   title: 'nekorush14.dev',
@@ -26,8 +27,19 @@ interface SocialLink {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class HomePage {
+  private readonly ogpService = inject(OgpService);
+
   // Profile information
   protected readonly name = signal('nekorush14');
+
+  constructor() {
+    this.ogpService.updateMetadata({
+      title: 'nekorush14.dev',
+      description: 'nekorush14.dev - Personal HQ',
+      url: 'https://nekorush14.dev',
+      type: 'website',
+    });
+  }
   protected readonly subName = signal('Mitsuhiro Komuro');
   // protected readonly role = signal('Backend Engineer');
   protected readonly bio = signal(
