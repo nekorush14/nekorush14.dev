@@ -39,8 +39,9 @@ jobs:
           prompt: |
             REPO: ${{ github.repository }}
             PR NUMBER: ${{ github.event.pull_request.number }}
+            CURRENT DATE: ${{ github.event.pull_request.updated_at }}
 
-            Please review this pull request and provide feedback on:
+            Please review this pull request based on the current date above and provide feedback on:
             - Code quality and best practices
             - Potential bugs or issues
             - Performance considerations
