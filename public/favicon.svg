@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <!-- 軌道リングのグラデーション -->
+    <linearGradient id="orbitGradient" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3B82F6" />
+      <stop offset="50%" stop-color="#6366F1" />
+      <stop offset="100%" stop-color="#8B5CF6" />
+    </linearGradient>
+    
+    <!-- 光る点のグロー効果 -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- 流れ星のグロー効果 -->
+    <filter id="starGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- 光る点の放射グラデーション（白系） -->
+    <radialGradient id="dotGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="40%" stop-color="#c9cafc" />
+      <stop offset="100%" stop-color="#a5a6f2" stop-opacity="0" />
+    </radialGradient>
+    
+    <!-- 軌跡のグラデーション（光点からフェードアウト） -->
+    <linearGradient id="trailGradient" x1="100%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#a5a6f2" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#8B5CF6" stop-opacity="0" />
+    </linearGradient>
+    
+    <!-- 流れ星の軌跡グラデーション -->
+    <linearGradient id="shootingTrail1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fca605" stop-opacity="0" />
+      <stop offset="100%" stop-color="#fca605" stop-opacity="0.9" />
+    </linearGradient>
+    <linearGradient id="shootingTrail2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fca605" stop-opacity="0" />
+      <stop offset="100%" stop-color="#fca605" stop-opacity="0.8" />
+    </linearGradient>
+    <linearGradient id="shootingTrail3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fca605" stop-opacity="0" />
+      <stop offset="100%" stop-color="#fca605" stop-opacity="0.7" />
+    </linearGradient>
+    
+    <!-- 四芒星 -->
+    <symbol id="fourPointStar" viewBox="0 0 24 24">
+      <path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z" fill="#fca605"/>
+    </symbol>
+  </defs>
+  
+  <!-- 軌道リング（大きく、隙間も調整） -->
+  <path
+    d="M 470 270 A 220 220 0 1 1 390 70"
+    fill="none"
+    stroke="url(#orbitGradient)"
+    stroke-width="28"
+    stroke-linecap="round"
+  />
+  
+  <!-- 右回りの軌跡（光点の左側＝来た方向に尾を引く） -->
+  <path
+    d="M 390 70 A 220 220 0 0 0 256 36"
+    fill="none"
+    stroke="url(#trailGradient)"
+    stroke-width="24"
+    stroke-linecap="round"
+  />
+  
+  <!-- 光る点（右回りで上部、やや右寄り） -->
+  <circle 
+    cx="390" 
+    cy="70" 
+    r="36" 
+    fill="url(#dotGlow)" 
+    filter="url(#glow)"
+  />
+  
+  <!-- 光る点の中心（白） -->
+  <circle 
+    cx="390" 
+    cy="70" 
+    r="14" 
+    fill="#FFFFFF"
+  />
+  
+  <!-- 流れ星1: 四芒星（右側・外側）- 画面外から -->
+  <line 
+    x1="560" y1="52" 
+    x2="340" y2="272" 
+    stroke="url(#shootingTrail1)" 
+    stroke-width="10"
+    stroke-linecap="round"
+  />
+  <use href="#fourPointStar" x="316" y="248" width="48" height="48" filter="url(#starGlow)"/>
+  
+  <!-- 流れ星2: 四芒星（中央）- 画面外から -->
+  <line 
+    x1="560" y1="22" 
+    x2="290" y2="292" 
+    stroke="url(#shootingTrail2)" 
+    stroke-width="10"
+    stroke-linecap="round"
+  />
+  <use href="#fourPointStar" x="266" y="268" width="48" height="48" filter="url(#starGlow)"/>
+  
+  <!-- 流れ星3: 四芒星（左側・内側）- 画面外から -->
+  <line 
+    x1="560" y1="-8" 
+    x2="240" y2="312" 
+    stroke="url(#shootingTrail3)" 
+    stroke-width="10"
+    stroke-linecap="round"
+  />
+  <use href="#fourPointStar" x="216" y="288" width="48" height="48" filter="url(#starGlow)"/>
+</svg>
