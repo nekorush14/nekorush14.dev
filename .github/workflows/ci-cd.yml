@@ -78,7 +78,7 @@ jobs:
         run: npm ci
 
       - name: Type check
-        run: npx tsc --noEmit
+        run: npx tsc --project tsconfig.app.json --noEmit
 
   build:
     needs: [lint, test, typecheck]
