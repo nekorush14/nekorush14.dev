@@ -1,0 +1,54 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":timezone(Asia/Tokyo)",
+    ":semanticCommits",
+    ":semanticCommitTypeAll(chore)"
+  ],
+  "schedule": ["before 10am on monday"],
+  "labels": ["dependencies"],
+  "rangeStrategy": "pin",
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 10am on the first day of the month"]
+  },
+  "packageRules": [
+    {
+      "description": "Angular packages",
+      "matchPackagePatterns": ["^@angular/", "^@angular-devkit/"],
+      "groupName": "angular",
+      "automerge": false
+    },
+    {
+      "description": "Analogjs packages",
+      "matchPackagePatterns": ["^@analogjs/"],
+      "groupName": "analogjs",
+      "automerge": false
+    },
+    {
+      "description": "Auto-merge patch updates for non-major dependencies",
+      "matchUpdateTypes": ["patch"],
+      "excludePackagePatterns": ["^@angular/", "^@angular-devkit/", "^@analogjs/"],
+      "automerge": true
+    },
+    {
+      "description": "Auto-merge minor updates for devDependencies",
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "excludePackagePatterns": ["^@angular/", "^@angular-devkit/", "^@analogjs/"],
+      "automerge": true
+    },
+    {
+      "description": "Group all non-major updates together",
+      "matchUpdateTypes": ["minor", "patch"],
+      "excludePackagePatterns": ["^@angular/", "^@angular-devkit/", "^@analogjs/"],
+      "groupName": "all non-major dependencies"
+    },
+    {
+      "description": "GitHub Actions",
+      "matchManagers": ["github-actions"],
+      "automerge": true
+    }
+  ]
+}
