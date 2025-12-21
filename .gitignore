@@ -45,5 +45,24 @@ Thumbs.db
 
 # Environment files (keep .env.example for CI/CD documentation)
 .env
-.env.local
-.env.*.local
+.env.*
+!.env.example
+
+# Firebase
+.firebase/
+*-debug.log
+firebase-debug.log
+
+# Authentication and sensitive files
+**/service-account*.json
+**/serviceAccount*.json
+*.pem
+
+### Firebase ###
+.idea
+**/node_modules/*
+**/.firebaserc
+
+### Firebase Patch ###
+.runtimeconfig.json
+.firebase/
