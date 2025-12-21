@@ -48,11 +48,11 @@ export class OgpService {
     this.setMetaTag('og:type', data.type);
     this.setMetaTag('og:site_name', data.siteName);
 
-    // Twitter Card meta tags
-    this.setMetaTag('twitter:card', 'summary_large_image');
-    this.setMetaTag('twitter:title', data.title);
-    this.setMetaTag('twitter:description', data.description);
-    this.setMetaTag('twitter:image', data.image);
+    // Twitter Card meta tags (use 'name' attribute instead of 'property')
+    this.setMetaTag('twitter:card', 'summary_large_image', 'name');
+    this.setMetaTag('twitter:title', data.title, 'name');
+    this.setMetaTag('twitter:description', data.description, 'name');
+    this.setMetaTag('twitter:image', data.image, 'name');
 
     // Standard meta description
     this.setMetaTag('description', data.description, 'name');
