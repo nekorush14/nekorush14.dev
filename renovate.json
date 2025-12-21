@@ -6,48 +6,83 @@
     ":semanticCommits",
     ":semanticCommitTypeAll(chore)"
   ],
-  "schedule": ["before 10am on monday"],
-  "labels": ["dependencies"],
+  "schedule": [
+    "before 10am on monday"
+  ],
+  "labels": [
+    "dependencies"
+  ],
   "rangeStrategy": "pin",
   "lockFileMaintenance": {
     "enabled": true,
-    "schedule": ["before 10am on the first day of the month"]
+    "schedule": [
+      "before 10am on the first day of the month"
+    ]
   },
   "packageRules": [
     {
       "description": "Angular packages",
-      "matchPackagePatterns": ["^@angular/", "^@angular-devkit/"],
       "groupName": "angular",
-      "automerge": false
+      "automerge": false,
+      "matchPackageNames": [
+        "/^@angular//",
+        "/^@angular-devkit//"
+      ]
     },
     {
       "description": "Analogjs packages",
-      "matchPackagePatterns": ["^@analogjs/"],
       "groupName": "analogjs",
-      "automerge": false
+      "automerge": false,
+      "matchPackageNames": [
+        "/^@analogjs//"
+      ]
     },
     {
       "description": "Auto-merge patch updates for non-major dependencies",
-      "matchUpdateTypes": ["patch"],
-      "excludePackagePatterns": ["^@angular/", "^@angular-devkit/", "^@analogjs/"],
-      "automerge": true
+      "matchUpdateTypes": [
+        "patch"
+      ],
+      "automerge": true,
+      "matchPackageNames": [
+        "!/^@angular//",
+        "!/^@angular-devkit//",
+        "!/^@analogjs//"
+      ]
     },
     {
       "description": "Auto-merge minor updates for devDependencies",
-      "matchDepTypes": ["devDependencies"],
-      "matchUpdateTypes": ["minor", "patch"],
-      "excludePackagePatterns": ["^@angular/", "^@angular-devkit/", "^@analogjs/"],
-      "automerge": true
+      "matchDepTypes": [
+        "devDependencies"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "automerge": true,
+      "matchPackageNames": [
+        "!/^@angular//",
+        "!/^@angular-devkit//",
+        "!/^@analogjs//"
+      ]
     },
     {
       "description": "Group all non-major updates together",
-      "matchUpdateTypes": ["minor", "patch"],
-      "excludePackagePatterns": ["^@angular/", "^@angular-devkit/", "^@analogjs/"],
-      "groupName": "all non-major dependencies"
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "groupName": "all non-major dependencies",
+      "matchPackageNames": [
+        "!/^@angular//",
+        "!/^@angular-devkit//",
+        "!/^@analogjs//"
+      ]
     },
     {
       "description": "GitHub Actions",
-      "matchManagers": ["github-actions"],
+      "matchManagers": [
+        "github-actions"
+      ],
       "automerge": true
     }
   ]
