@@ -119,4 +119,4 @@ This project uses a dual license:
 | Content                    | License                                                           | File                                 |
 | -------------------------- | ----------------------------------------------------------------- | ------------------------------------ |
 | Source code                | [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0) | [LICENSE](./LICENSE)                 |
-| Documents (`src/content/`) | [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/)   | [LICENSE-CONTENT](./LICENSE-CONTENT) |
+| Documents (`src/content/`) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) | [LICENSE-CONTENT](./LICENSE-CONTENT) |

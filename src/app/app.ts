@@ -33,25 +33,29 @@ import { ThemeService } from './core/services/theme.service';
       <footer class="site-footer">
         <a routerLink="/privacy" class="footer-link">Privacy Policy</a>
         <span class="footer-separator" aria-hidden="true">|</span>
-        <p class="footer-copyright">&copy; {{ currentYear }} nekorush14. All rights reserved.</p>
+        <p class="footer-copyright">&copy; 2025 nekorush14</p>
         <span class="footer-separator" aria-hidden="true">|</span>
-        <div class="footer-license">
-          <a
-            rel="license"
-            href="https://creativecommons.org/licenses/by-nc/4.0/"
-            target="_blank"
-            class="license-link"
-            aria-label="Creative Commons Attribution-NonCommercial 4.0 International License"
-          >
-            <img
-              alt="CC BY-NC 4.0"
-              src="https://licensebuttons.net/l/by-nc/4.0/88x31.png"
-              width="88"
-              height="31"
-            />
-          </a>
-          <span class="license-text">Blog content is licensed under CC BY-NC 4.0</span>
-        </div>
+        <a
+          href="https://github.com/nekorush14/nekorush14.dev"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="footer-link"
+        >GitHub Repository</a>
+        <span class="footer-separator" aria-hidden="true">|</span>
+        <a
+          rel="license"
+          href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
+          target="_blank"
+          class="license-link"
+          aria-label="Content is licensed under CC BY-NC-SA 4.0"
+        >
+          <img
+            alt="CC BY-NC-SA 4.0"
+            src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png"
+            width="88"
+            height="31"
+          />
+        </a>
       </footer>
 
       <!-- Cookie Consent Banner -->
@@ -174,14 +178,6 @@ import { ThemeService } from './core/services/theme.service';
       text-align: center;
     }
 
-    .footer-license {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-      text-align: center;
-    }
-
     .license-link {
       display: flex;
       align-items: center;
@@ -202,10 +198,6 @@ import { ThemeService } from './core/services/theme.service';
       border-radius: var(--radius-sm);
     }
 
-    .license-text {
-      color: var(--color-on-surface-variant);
-    }
-
     @media (min-width: 768px) {
       .site-footer {
         flex-direction: row;
@@ -217,17 +209,12 @@ import { ThemeService } from './core/services/theme.service';
       .footer-separator {
         display: inline;
       }
-
-      .footer-license {
-        flex-direction: row;
-      }
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {
   protected readonly themeService = inject(ThemeService);
-  protected readonly currentYear = 2025;
 
   protected toggleTheme(): void {
     this.themeService.toggleTheme();
