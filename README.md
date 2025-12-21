@@ -13,7 +13,7 @@ Personal website and blog of nekorush14.
 
 ## Requirements
 
-- Node.js >= 20.19.1
+- Node.js >= 22.0.0
 
 ## Setup
 
@@ -29,13 +29,11 @@ Copy `.env.example` to `.env.local` and configure:
 cp .env.example .env.local
 ```
 
-| Variable | Description | Required |
-|----------|-------------|----------|
-| `VITE_GA_MEASUREMENT_ID` | Google Analytics Measurement ID (G-XXXXXXXXXX) | No |
+| Variable                 | Description                                    | Required |
+| ------------------------ | ---------------------------------------------- | -------- |
+| `VITE_GA_MEASUREMENT_ID` | Google Analytics Measurement ID (G-XXXXXXXXXX) | No       |
 
-Get your GA Measurement ID from:
-- Firebase Console > Project Settings > Integrations > Google Analytics
-- Google Analytics > Admin > Data Streams > Web
+See [How to get these values](#how-to-get-these-values) for details.
 
 ## Development
 
@@ -74,17 +72,22 @@ npm run test
 src/
 ├── app/
 │   ├── core/
-│   │   ├── components/     # Shared components (navigation, cookie consent)
-│   │   ├── models/         # Type definitions
-│   │   └── services/       # Services (theme, cookie consent)
-│   └── pages/              # Page components (Analogjs file-based routing)
-│       ├── index.page.ts   # Home page
-│       ├── privacy.page.ts # Privacy policy
-│       └── blog/           # Blog pages
+│   │   ├── components/        # Shared components
+│   │   │   ├── cookie-consent/    # Cookie consent banner and modal
+│   │   │   └── navigation-rail/   # Navigation rail component
+│   │   ├── models/            # Type definitions
+│   │   └── services/          # Services (theme, cookie consent)
+│   └── pages/                 # Page components (Analogjs file-based routing)
+│       ├── index.page.ts          # Home page
+│       ├── privacy.page.ts        # Privacy policy
+│       └── blog/                  # Blog pages
+│           ├── index.page.ts          # Blog list
+│           └── [slug].page.ts         # Blog post detail (dynamic route)
 ├── content/
-│   └── blog/               # Blog posts (Markdown)
+│   ├── assets/                # Static assets for blog posts
+│   └── blog/                  # Blog posts (Markdown)
 └── server/
-    └── routes/api/         # API endpoints
+    └── routes/api/v1/         # API endpoints
 ```
 
 ## Deployment
@@ -97,18 +100,23 @@ This project is configured for Firebase Hosting with Google Analytics.
 
 Set the following secrets in your repository (Settings > Secrets and variables > Actions):
 
-| Secret | Description |
-|--------|-------------|
-| `VITE_GA_MEASUREMENT_ID` | Google Analytics Measurement ID |
+| Secret                     | Description                                    | Required |
+| -------------------------- | ---------------------------------------------- | -------- |
+| `FIREBASE_SERVICE_ACCOUNT` | Firebase service account JSON for deployment   | Yes      |
+| `FIREBASE_PROJECT_ID`      | Firebase project ID                            | Yes      |
+| `VITE_GA_MEASUREMENT_ID`   | Google Analytics Measurement ID (G-XXXXXXXXXX) | No       |
 
-Example workflow:
+#### How to get these values
 
-```yaml
-- run: npm run build
-  env:
-    VITE_GA_MEASUREMENT_ID: ${{ secrets.VITE_GA_MEASUREMENT_ID }}
-```
+1. **FIREBASE_SERVICE_ACCOUNT**: Firebase Console > Project Settings > Service accounts > Generate new private key
+2. **FIREBASE_PROJECT_ID**: Firebase Console > Project Settings > General > Project ID
+3. **VITE_GA_MEASUREMENT_ID**: Google Analytics > Admin > Data Streams > Web
 
-## LICENSE
+## License
 
-This software is released under the MIT License, see LICENSE file.
+This project uses a dual license:
+
+| Content                    | License                                                           | File                                 |
+| -------------------------- | ----------------------------------------------------------------- | ------------------------------------ |
+| Source code                | [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0) | [LICENSE](./LICENSE)                 |
+| Documents (`src/content/`) | [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/)   | [LICENSE-CONTENT](./LICENSE-CONTENT) |

@@ -34,6 +34,24 @@ import { ThemeService } from './core/services/theme.service';
         <a routerLink="/privacy" class="footer-link">Privacy Policy</a>
         <span class="footer-separator" aria-hidden="true">|</span>
         <p class="footer-copyright">&copy; {{ currentYear }} nekorush14. All rights reserved.</p>
+        <span class="footer-separator" aria-hidden="true">|</span>
+        <div class="footer-license">
+          <a
+            rel="license"
+            href="https://creativecommons.org/licenses/by-nc/4.0/"
+            target="_blank"
+            class="license-link"
+            aria-label="Creative Commons Attribution-NonCommercial 4.0 International License"
+          >
+            <img
+              alt="CC BY-NC 4.0"
+              src="https://licensebuttons.net/l/by-nc/4.0/88x31.png"
+              width="88"
+              height="31"
+            />
+          </a>
+          <span class="license-text">Blog content is licensed under CC BY-NC 4.0</span>
+        </div>
       </footer>
 
       <!-- Cookie Consent Banner -->
@@ -116,6 +134,7 @@ import { ThemeService } from './core/services/theme.service';
     /* Footer */
     .site-footer {
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 0.75rem;
@@ -146,17 +165,61 @@ import { ThemeService } from './core/services/theme.service';
     }
 
     .footer-separator {
+      display: none;
       color: var(--color-outline-variant);
     }
 
     .footer-copyright {
       margin: 0;
+      text-align: center;
+    }
+
+    .footer-license {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      text-align: center;
+    }
+
+    .license-link {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+      line-height: 0;
+      transition: opacity var(--duration-fast) var(--ease-standard);
+    }
+
+    .license-link:hover {
+      opacity: 0.8;
+    }
+
+    .license-link:focus-visible {
+      outline: none;
+      box-shadow:
+        0 0 0 2px var(--color-surface),
+        0 0 0 4px var(--color-primary);
+      border-radius: var(--radius-sm);
+    }
+
+    .license-text {
+      color: var(--color-on-surface-variant);
     }
 
     @media (min-width: 768px) {
       .site-footer {
+        flex-direction: row;
+        flex-wrap: wrap;
         margin-left: 80px;
         margin-bottom: 0;
+      }
+
+      .footer-separator {
+        display: inline;
+      }
+
+      .footer-license {
+        flex-direction: row;
       }
     }
   `,
