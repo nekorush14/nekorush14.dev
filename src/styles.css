@@ -650,6 +650,11 @@
   color: #9ece6a;
 }
 
+.code-copy-btn.error {
+  /* TokyoNight red */
+  color: #f7768e;
+}
+
 .code-copy-btn svg {
   width: 14px;
   height: 14px;
@@ -671,13 +676,21 @@
   border-top: 1px solid var(--color-outline-variant);
 }
 
-.prose img {
+.prose img:not(.link-card-image):not(.link-card-favicon) {
   margin-top: 2rem;
   margin-bottom: 2rem;
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-md);
   max-width: 100%;
   height: auto;
+}
+
+/* Link card image reset - exclude from prose img styles */
+.prose .link-card-image {
+  margin: 0;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .prose table {
@@ -741,4 +754,106 @@
   scrollbar-width: thin;
   /* TokyoNight colors */
   scrollbar-color: #292e42 #1a1b26;
+}
+
+/* =============================================================================
+ * M3E Tag/Chip Component
+ * Subtle pill-shaped tags for categorization
+ * ============================================================================= */
+
+/* Tag container */
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Base tag style - outlined variant */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-full);
+  background-color: transparent;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-on-surface-variant);
+  text-decoration: none;
+  cursor: default;
+  transition: all var(--duration-fast) var(--ease-spring);
+}
+
+/* Interactive tag (clickable) */
+.tag-interactive {
+  cursor: pointer;
+}
+
+.tag-interactive:hover {
+  background-color: var(--color-surface-container-high);
+  border-color: var(--color-outline);
+  color: var(--color-on-surface);
+}
+
+.tag-interactive:active {
+  background-color: var(--color-surface-container-highest);
+}
+
+.tag-interactive:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px var(--color-surface),
+    0 0 0 4px var(--color-primary);
+}
+
+/* Secondary variant - filled background */
+.tag-secondary {
+  background-color: var(--color-surface-container);
+  border-color: transparent;
+}
+
+.tag-secondary:hover {
+  background-color: var(--color-surface-container-high);
+}
+
+/* Primary variant - accent color */
+.tag-primary {
+  background-color: oklch(from var(--color-primary) l c h / 0.1);
+  border-color: oklch(from var(--color-primary) l c h / 0.3);
+  color: var(--color-primary);
+}
+
+.tag-primary:hover {
+  background-color: oklch(from var(--color-primary) l c h / 0.15);
+  border-color: var(--color-primary);
+}
+
+/* Removable tag - M3E filter chip pattern */
+.tag-removable {
+  gap: 0.25rem;
+  padding-right: 0.5rem;
+}
+
+.tag-remove-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1rem;
+  height: 1rem;
+  margin-left: 0.125rem;
+  border-radius: var(--radius-full);
+  font-size: 0.875rem;
+  line-height: 1;
+  opacity: 0.7;
+  transition: opacity var(--duration-fast) var(--ease-spring);
+}
+
+.tag-removable:hover .tag-remove-icon {
+  opacity: 1;
 }

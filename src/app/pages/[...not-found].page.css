@@ -1,0 +1,46 @@
+/* =============================================================================
+ * 404 Not Found Page Styles
+ * Material Design 3 Expressive with minimal, space-themed design
+ * ============================================================================= */
+
+/* Main container - fit content without scroll on desktop */
+.not-found-container {
+  /* Mobile: account for bottom navigation (80px) */
+  min-height: calc(100vh - 80px - 120px);
+  min-height: calc(100dvh - 80px - 120px);
+}
+
+@media (width >= 768px) {
+  .not-found-container {
+    /* Desktop: no bottom navigation, only footer */
+    min-height: calc(100vh - 120px);
+    min-height: calc(100dvh - 120px);
+  }
+}
+
+/* Illustration container */
+.illustration-container {
+  width: 200px;
+  height: 200px;
+}
+
+.illustration {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* 404 Error Code */
+.error-code {
+  font-size: 6rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--color-primary);
+  letter-spacing: -0.02em;
+}
+
+@media (width >= 640px) {
+  .error-code {
+    font-size: 8rem;
+  }
+}

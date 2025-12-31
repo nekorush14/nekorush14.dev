@@ -4,39 +4,57 @@
       <h1 class="font-display text-3xl font-bold text-on-surface md:text-4xl">
         Blog
       </h1>
-      <p class="mt-2 text-on-surface-variant">技術記事や日々の記録</p>
+      <p class="mt-2 text-on-surface-variant">技術の話や技術に関わらない話をします。</p>
     </header>
 
     <ul class="space-y-6">
-      @for (post of posts; track post.slug; let i = $index) {
+      @for (post of posts(); track post.slug; let i = $index) {
         <li
           class="animate-slide-up"
           [style.animation-delay]="i * 50 + 'ms'"
         >
-          <a
-            [routerLink]="['/blog', post.slug]"
-            class="card card-interactive block"
-          >
-            <h2 class="text-xl font-semibold text-on-surface">
-              {{ post.attributes.title }}
-            </h2>
-            <time class="mt-1 block text-sm text-on-surface-variant">
-              {{ post.attributes.date }}
-            </time>
-            <p class="mt-3 line-clamp-2 text-on-surface-variant">
-              {{ post.attributes.description }}
-            </p>
-          </a>
+          <article class="blog-card">
+            @if (post.attributes.coverImage) {
+              <div class="blog-card-image-container">
+                <img
+                  [ngSrc]="post.attributes.coverImage"
+                  [alt]="post.attributes.title"
+                  fill
+                  class="blog-card-image"
+                />
+              </div>
+            }
+            <div class="blog-card-content">
+              <h2 class="text-xl font-semibold text-on-surface">
+                <a [routerLink]="['/blog', post.slug]" class="blog-card-link">
+                  {{ post.attributes.title }}
+                </a>
+              </h2>
+              <time class="mt-1 block text-sm text-on-surface-variant">
+                {{ post.attributes.date | date:'yyyy-MM-dd' }}
+              </time>
+              @if (post.attributes.tags && post.attributes.tags.length > 0) {
+                <ul class="tag-list mt-2" aria-label="Tags">
+                  @for (tag of post.attributes.tags; track tag) {
+                    <li>
+                      <a
+                        routerLink="/tags"
+                        [queryParams]="{ t: tag }"
+                        class="tag tag-interactive"
+                      >{{ tag }}</a>
+                    </li>
+                  }
+                </ul>
+              }
+              <p class="mt-3 line-clamp-2 text-on-surface-variant">
+                {{ post.attributes.description }}
+              </p>
+            </div>
+          </article>
         </li>
       } @empty {
         <li class="card text-on-surface-variant">記事がありません</li>
       }
     </ul>
-
-    <div class="mt-12">
-      <a routerLink="/" class="link">
-        ← ホームに戻る
-      </a>
-    </div>
   </div>
 </main>

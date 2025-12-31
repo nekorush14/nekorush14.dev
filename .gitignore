@@ -30,6 +30,11 @@ yarn-error.log
 
 # Miscellaneous
 /.angular/cache
+.ogp-cache.json
+/.font-cache
+
+# Generated OGP images
+/public/ogp/blog/
 /.nx/cache
 /.nx/workspace-data
 .sass-cache/

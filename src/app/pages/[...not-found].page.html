@@ -1,0 +1,48 @@
+<main class="not-found-container flex items-center justify-center px-4 py-8">
+  <div class="mx-auto max-w-md text-center animate-slide-up">
+    <!-- Illustration: Lost in Space -->
+    <div class="illustration-container mx-auto mb-8">
+      <img
+        ngSrc="/images/404-illustration.webp"
+        alt="Lost in space illustration"
+        width="400"
+        height="400"
+        priority
+        class="illustration"
+      />
+    </div>
+
+    <!-- 404 Text -->
+    <h1 class="error-code font-display">404</h1>
+
+    <!-- Message -->
+    <p class="mt-4 text-lg text-on-surface-variant">
+      Page Not Found
+    </p>
+    <p class="mt-2 text-sm text-on-surface-variant">
+      The page you are looking for seems to have drifted into space.
+    </p>
+
+    <!-- Back to Home Button -->
+    <a
+      routerLink="/"
+      class="btn-primary mt-8 inline-flex items-center gap-2"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+        <polyline points="9 22 9 12 15 12 15 22" />
+      </svg>
+      Back to Home
+    </a>
+  </div>
+</main>
