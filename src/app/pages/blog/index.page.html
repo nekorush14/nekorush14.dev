@@ -13,10 +13,7 @@
           class="animate-slide-up"
           [style.animation-delay]="i * 50 + 'ms'"
         >
-          <a
-            [routerLink]="['/blog', post.slug]"
-            class="blog-card"
-          >
+          <article class="blog-card">
             @if (post.attributes.coverImage) {
               <div class="blog-card-image-container">
                 <img
@@ -29,7 +26,9 @@
             }
             <div class="blog-card-content">
               <h2 class="text-xl font-semibold text-on-surface">
-                {{ post.attributes.title }}
+                <a [routerLink]="['/blog', post.slug]" class="blog-card-link">
+                  {{ post.attributes.title }}
+                </a>
               </h2>
               <time class="mt-1 block text-sm text-on-surface-variant">
                 {{ post.attributes.date | date:'yyyy-MM-dd' }}
@@ -38,7 +37,11 @@
                 <ul class="tag-list mt-2" aria-label="Tags">
                   @for (tag of post.attributes.tags; track tag) {
                     <li>
-                      <span class="tag">{{ tag }}</span>
+                      <a
+                        routerLink="/tags"
+                        [queryParams]="{ t: tag }"
+                        class="tag tag-interactive"
+                      >{{ tag }}</a>
                     </li>
                   }
                 </ul>
@@ -47,7 +50,7 @@
                 {{ post.attributes.description }}
               </p>
             </div>
-          </a>
+          </article>
         </li>
       } @empty {
         <li class="card text-on-surface-variant">記事がありません</li>

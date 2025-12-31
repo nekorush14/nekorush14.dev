@@ -12,7 +12,9 @@
           <ul class="tag-list mt-4" aria-label="Tags">
             @for (tag of post.attributes.tags; track tag) {
               <li>
-                <span class="tag">{{ tag }}</span>
+                <a routerLink="/tags" [queryParams]="{ t: tag }" class="tag tag-interactive">
+                  {{ tag }}
+                </a>
               </li>
             }
           </ul>

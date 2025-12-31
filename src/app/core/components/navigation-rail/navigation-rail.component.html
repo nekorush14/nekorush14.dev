@@ -31,10 +31,10 @@
       } @else {
         <a
           [routerLink]="item.path"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: item.path === '/' }"
           class="nav-item"
+          [class.active]="isNavItemActive(item)"
           [attr.aria-label]="item.label"
+          [attr.aria-current]="isNavItemActive(item) ? 'page' : null"
         >
           <span class="nav-item-indicator">
             <span class="material-symbols-outlined nav-icon" aria-hidden="true">
@@ -87,10 +87,10 @@
     } @else {
       <a
         [routerLink]="item.path"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: item.path === '/' }"
         class="nav-bottom-item"
+        [class.active]="isNavItemActive(item)"
         [attr.aria-label]="item.label"
+        [attr.aria-current]="isNavItemActive(item) ? 'page' : null"
       >
         <span class="nav-bottom-indicator">
           <span class="material-symbols-outlined nav-bottom-icon" aria-hidden="true">

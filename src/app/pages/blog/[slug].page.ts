@@ -1,7 +1,7 @@
-import { Component, afterNextRender, effect, inject } from '@angular/core';
+import { Component, afterNextRender, effect, inject, PLATFORM_ID } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
-import { AsyncPipe, DatePipe, DOCUMENT } from '@angular/common';
+import { AsyncPipe, DatePipe, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { injectContent, MarkdownComponent } from '@analogjs/content';
 import PostAttributes from 'src/app/core/models/post-attributes';
 import { OgpService } from '../../core/services/ogp.service';
@@ -14,6 +14,7 @@ import { OgpService } from '../../core/services/ogp.service';
 })
 export default class BlogPostPage {
   private readonly document = inject(DOCUMENT);
+  private readonly platformId = inject(PLATFORM_ID);
   private readonly ogpService = inject(OgpService);
 
   readonly post$ = injectContent<PostAttributes>({
@@ -24,7 +25,7 @@ export default class BlogPostPage {
   private readonly post = toSignal(this.post$);
 
   constructor() {
-    // Set OGP metadata when post data is available
+    // Set OGP metadata and enhance content when post data changes
     effect(() => {
       const post = this.post();
       if (post?.attributes) {
@@ -36,16 +37,56 @@ export default class BlogPostPage {
           image: attrs.coverImage,
           type: 'article',
         });
+
+        // Enhance content after DOM updates (works for both initial load and SPA navigation)
+        if (isPlatformBrowser(this.platformId)) {
+          // Use requestAnimationFrame to wait for DOM to update
+          requestAnimationFrame(() => {
+            this.waitForMarkdownContent();
+          });
+        }
+      }
+    });
+  }
+
+  private waitForMarkdownContent(): void {
+    // Only run in browser environment
+    if (!isPlatformBrowser(this.platformId)) return;
+
+    const prose = this.document.querySelector('.prose');
+    if (!prose) return;
+
+    // Check if content is already rendered
+    const checkAndEnhance = () => {
+      const hasContent = prose.querySelector('p, h1, h2, h3, pre');
+      if (hasContent) {
+        this.generateTableOfContents();
+        this.enhanceCodeBlocks();
+        return true;
+      }
+      return false;
+    };
+
+    // Try immediately first
+    if (checkAndEnhance()) return;
+
+    // Otherwise, observe for changes
+    const observer = new MutationObserver(() => {
+      if (checkAndEnhance()) {
+        observer.disconnect();
       }
     });
 
-    afterNextRender(() => {
-      // Wait for markdown content to render
-      setTimeout(() => {
-        this.generateTableOfContents();
-        this.enhanceCodeBlocks();
-      }, 100);
+    observer.observe(prose, {
+      childList: true,
+      subtree: true,
     });
+
+    // Fallback timeout to prevent infinite observation
+    setTimeout(() => {
+      observer.disconnect();
+      checkAndEnhance();
+    }, 3000);
   }
 
   private generateTableOfContents(): void {
