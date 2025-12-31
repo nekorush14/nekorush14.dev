@@ -22,10 +22,10 @@ jobs:
        github.event.pull_request.head.repo.full_name == github.repository)
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: "22"
           cache: "npm"
@@ -44,10 +44,10 @@ jobs:
        github.event.pull_request.head.repo.full_name == github.repository)
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: "22"
           cache: "npm"
@@ -66,10 +66,10 @@ jobs:
        github.event.pull_request.head.repo.full_name == github.repository)
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: "22"
           cache: "npm"
@@ -89,10 +89,10 @@ jobs:
        github.event.pull_request.head.repo.full_name == github.repository)
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: "22"
           cache: "npm"
@@ -128,7 +128,7 @@ jobs:
       url: ${{ steps.deploy.outputs.details_url }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Download build artifacts
         uses: actions/download-artifact@v4
@@ -156,7 +156,7 @@ jobs:
       url: https://nekorush14.dev
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Download build artifacts
         uses: actions/download-artifact@v4
