@@ -2,12 +2,21 @@
   @if (post$ | async; as post) {
     <article class="mx-auto max-w-3xl animate-fade-in">
       <header class="mb-10">
-        <h1 class="font-display text-3xl font-bold text-on-surface md:text-4xl lg:text-5xl">
+        <h1 class="font-display text-3xl font-bold text-on-surface md:text-4xl">
           {{ post.attributes.title }}
         </h1>
         <time class="mt-3 block text-on-surface-variant">
-          {{ post.attributes.date }}
+          {{ post.attributes.date | date:'yyyy-MM-dd' }}
         </time>
+        @if (post.attributes.tags && post.attributes.tags.length > 0) {
+          <ul class="tag-list mt-4" aria-label="Tags">
+            @for (tag of post.attributes.tags; track tag) {
+              <li>
+                <span class="tag">{{ tag }}</span>
+              </li>
+            }
+          </ul>
+        }
       </header>
 
       <div class="prose">

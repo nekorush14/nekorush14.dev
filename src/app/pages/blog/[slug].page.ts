@@ -1,25 +1,14 @@
 import { Component, afterNextRender, effect, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { Router, RouterLink } from '@angular/router';
-import { AsyncPipe, DOCUMENT } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { AsyncPipe, DatePipe, DOCUMENT } from '@angular/common';
 import { injectContent, MarkdownComponent } from '@analogjs/content';
-import { RouteMeta } from '@analogjs/router';
 import PostAttributes from 'src/app/core/models/post-attributes';
 import { OgpService } from '../../core/services/ogp.service';
 
-// Redirect to home while blog is disabled
-export const routeMeta: RouteMeta = {
-  canActivate: [
-    () => {
-      const router = inject(Router);
-      return router.createUrlTree(['/']);
-    },
-  ],
-};
-
 @Component({
   selector: 'app-blog-post',
-  imports: [RouterLink, MarkdownComponent, AsyncPipe],
+  imports: [RouterLink, MarkdownComponent, AsyncPipe, DatePipe],
   templateUrl: './[slug].page.html',
   styleUrl: './[slug].page.css',
 })
@@ -52,8 +41,105 @@ export default class BlogPostPage {
 
     afterNextRender(() => {
       // Wait for markdown content to render
-      setTimeout(() => this.enhanceCodeBlocks(), 100);
+      setTimeout(() => {
+        this.generateTableOfContents();
+        this.enhanceCodeBlocks();
+      }, 100);
     });
+  }
+
+  private generateTableOfContents(): void {
+    const prose = this.document.querySelector('.prose');
+    if (!prose) return;
+
+    // Find [[toc]] placeholder in text nodes
+    let tocPlaceholder: Element | null = null;
+    const paragraphs = Array.from(prose.querySelectorAll('p'));
+    for (const p of paragraphs) {
+      if (p.textContent?.trim() === '[[toc]]') {
+        tocPlaceholder = p;
+        break;
+      }
+    }
+
+    if (!tocPlaceholder) return;
+
+    // Extract h2 and h3 headings
+    const headings = prose.querySelectorAll('h2, h3');
+    if (headings.length === 0) return;
+
+    interface TocItem {
+      id: string;
+      text: string;
+      level: number;
+    }
+
+    const tocItems: TocItem[] = [];
+
+    headings.forEach((heading, index) => {
+      const text = heading.textContent?.trim() || '';
+      // Generate id from text (slug format)
+      const id = heading.id || this.generateSlug(text, index);
+      heading.id = id;
+
+      tocItems.push({
+        id,
+        text,
+        level: heading.tagName === 'H2' ? 2 : 3,
+      });
+    });
+
+    // Build TOC HTML
+    const tocNav = this.document.createElement('nav');
+    tocNav.className = 'toc';
+    tocNav.setAttribute('aria-label', 'Table of contents');
+
+    const tocTitle = this.document.createElement('p');
+    tocTitle.className = 'toc-title';
+    tocTitle.textContent = '目次';
+    tocNav.appendChild(tocTitle);
+
+    const tocList = this.document.createElement('ul');
+    tocList.className = 'toc-list';
+
+    tocItems.forEach((item) => {
+      const li = this.document.createElement('li');
+      li.className = item.level === 3 ? 'toc-item toc-item-nested' : 'toc-item';
+
+      const link = this.document.createElement('button');
+      link.type = 'button';
+      link.className = 'toc-link';
+      link.textContent = item.text;
+      link.setAttribute('data-target', item.id);
+
+      link.addEventListener('click', () => {
+        const target = this.document.getElementById(item.id);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+
+      li.appendChild(link);
+      tocList.appendChild(li);
+    });
+
+    tocNav.appendChild(tocList);
+
+    // Replace placeholder with TOC
+    tocPlaceholder.parentNode?.replaceChild(tocNav, tocPlaceholder);
+  }
+
+  private generateSlug(text: string, index: number): string {
+    // Convert text to URL-friendly slug
+    const slug = text
+      .toLowerCase()
+      .trim()
+      .replace(/\s+/g, '-')
+      .replace(/[^\w\u3040-\u309f\u30a0-\u30ff\u4e00-\u9faf\u30fc-]/g, '')
+      .replace(/-+/g, '-')
+      .replace(/^-|-$/g, '');
+
+    return slug || `heading-${index}`;
   }
 
   private enhanceCodeBlocks(): void {
