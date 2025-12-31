@@ -1,0 +1,94 @@
+<main class="not-found-container flex items-center justify-center px-4 py-8">
+  <div class="mx-auto max-w-md text-center animate-slide-up">
+    <!-- Illustration: Lost in Space -->
+    <div class="illustration-container mx-auto mb-8">
+      <svg
+        viewBox="0 0 200 200"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        class="illustration"
+        aria-hidden="true"
+      >
+        <!-- Background circle -->
+        <circle cx="100" cy="100" r="90" class="bg-circle" />
+
+        <!-- Stars -->
+        <circle cx="45" cy="50" r="2" class="star star-1" />
+        <circle cx="155" cy="45" r="1.5" class="star star-2" />
+        <circle cx="35" cy="120" r="1.5" class="star star-3" />
+        <circle cx="165" cy="130" r="2" class="star star-4" />
+        <circle cx="60" cy="160" r="1" class="star star-5" />
+        <circle cx="140" cy="165" r="1.5" class="star star-6" />
+
+        <!-- Planet -->
+        <ellipse cx="140" cy="60" rx="18" ry="18" class="planet" />
+        <ellipse cx="140" cy="60" rx="26" ry="6" class="planet-ring" />
+
+        <!-- Floating astronaut cat -->
+        <g class="astronaut">
+          <!-- Body -->
+          <ellipse cx="100" cy="115" rx="22" ry="26" class="astronaut-body" />
+
+          <!-- Helmet -->
+          <circle cx="100" cy="85" r="24" class="helmet-outer" />
+          <circle cx="100" cy="85" r="18" class="helmet-visor" />
+
+          <!-- Cat face inside helmet -->
+          <ellipse cx="100" cy="88" rx="12" ry="10" class="cat-face" />
+
+          <!-- Cat ears -->
+          <path d="M90 75 L88 68 L94 73 Z" class="cat-ear" />
+          <path d="M110 75 L112 68 L106 73 Z" class="cat-ear" />
+
+          <!-- Cat eyes -->
+          <ellipse cx="95" cy="86" rx="2.5" ry="3" class="cat-eye" />
+          <ellipse cx="105" cy="86" rx="2.5" ry="3" class="cat-eye" />
+
+          <!-- Cat nose -->
+          <path d="M100 90 L98 93 L102 93 Z" class="cat-nose" />
+
+          <!-- Arms -->
+          <ellipse cx="75" cy="105" rx="8" ry="6" class="astronaut-arm" />
+          <ellipse cx="125" cy="105" rx="8" ry="6" class="astronaut-arm" />
+
+          <!-- Legs -->
+          <ellipse cx="90" cy="140" rx="6" ry="10" class="astronaut-leg" />
+          <ellipse cx="110" cy="140" rx="6" ry="10" class="astronaut-leg" />
+        </g>
+      </svg>
+    </div>
+
+    <!-- 404 Text -->
+    <h1 class="error-code font-display">404</h1>
+
+    <!-- Message -->
+    <p class="mt-4 text-lg text-on-surface-variant">
+      Page Not Found
+    </p>
+    <p class="mt-2 text-sm text-on-surface-variant">
+      The page you are looking for seems to have drifted into space.
+    </p>
+
+    <!-- Back to Home Button -->
+    <a
+      routerLink="/"
+      class="btn-primary mt-8 inline-flex items-center gap-2"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+        <polyline points="9 22 9 12 15 12 15 22" />
+      </svg>
+      Back to Home
+    </a>
+  </div>
+</main>
