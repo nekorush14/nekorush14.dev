@@ -1,4 +1,4 @@
-import { Component, afterNextRender, effect, inject, PLATFORM_ID } from '@angular/core';
+import { Component, effect, inject, PLATFORM_ID } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { AsyncPipe, DatePipe, DOCUMENT, isPlatformBrowser } from '@angular/common';
