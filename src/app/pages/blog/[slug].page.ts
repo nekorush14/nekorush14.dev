@@ -35,6 +35,11 @@ export default class BlogPostPage {
   private readonly cleanupFns: (() => void)[] = [];
   // Track active timer IDs for cleanup
   private readonly activeTimerIds = new Set<ReturnType<typeof setTimeout>>();
+  // Track current MutationObserver for cleanup on re-render
+  private currentObserver: MutationObserver | null = null;
+  private currentObserverTimeoutId: ReturnType<typeof setTimeout> | null = null;
+  // Track copy button timers by button reference for race condition prevention
+  private readonly copyButtonTimers = new WeakMap<HTMLButtonElement, ReturnType<typeof setTimeout>>();
 
   readonly post$ = injectContent<PostAttributes>({
     param: 'slug',
@@ -51,6 +56,8 @@ export default class BlogPostPage {
       // Clear all active timers
       this.activeTimerIds.forEach((id) => clearTimeout(id));
       this.activeTimerIds.clear();
+      // Clean up current observer
+      this.cleanupCurrentObserver();
     });
 
     // Set OGP metadata and enhance content when post data changes
@@ -77,9 +84,26 @@ export default class BlogPostPage {
     });
   }
 
+  /**
+   * Clean up current MutationObserver and its timeout
+   */
+  private cleanupCurrentObserver(): void {
+    if (this.currentObserverTimeoutId) {
+      clearTimeout(this.currentObserverTimeoutId);
+      this.currentObserverTimeoutId = null;
+    }
+    if (this.currentObserver) {
+      this.currentObserver.disconnect();
+      this.currentObserver = null;
+    }
+  }
+
   private waitForMarkdownContent(): void {
     // Only run in browser environment
     if (!isPlatformBrowser(this.platformId)) return;
+
+    // Clean up previous observer before creating a new one
+    this.cleanupCurrentObserver();
 
     const prose = this.document.querySelector('.prose');
     if (!prose) return;
@@ -99,28 +123,22 @@ export default class BlogPostPage {
     if (checkAndEnhance()) return;
 
     // Otherwise, observe for changes
-    const observer = new MutationObserver(() => {
+    this.currentObserver = new MutationObserver(() => {
       if (checkAndEnhance()) {
-        observer.disconnect();
+        this.cleanupCurrentObserver();
       }
     });
 
-    observer.observe(prose, {
+    this.currentObserver.observe(prose, {
       childList: true,
       subtree: true,
     });
 
     // Fallback timeout to prevent infinite observation
-    const timeoutId = setTimeout(() => {
-      observer.disconnect();
+    this.currentObserverTimeoutId = setTimeout(() => {
+      this.cleanupCurrentObserver();
       checkAndEnhance();
     }, 3000);
-
-    // Register cleanup for observer and timeout
-    this.cleanupFns.push(() => {
-      clearTimeout(timeoutId);
-      observer.disconnect();
-    });
   }
 
   private generateTableOfContents(): void {
@@ -307,24 +325,35 @@ export default class BlogPostPage {
     const code = pre.querySelector('code');
     if (!code) return;
 
+    // Cancel any existing timer for this button to prevent race condition
+    const existingTimerId = this.copyButtonTimers.get(button);
+    if (existingTimerId) {
+      clearTimeout(existingTimerId);
+      this.activeTimerIds.delete(existingTimerId);
+    }
+
     try {
       await navigator.clipboard.writeText(code.textContent || '');
 
       // Show success state
       this.renderer.addClass(button, 'copied');
+      this.renderer.removeClass(button, 'error');
       this.setCopyButtonContent(button, true);
 
-      // Reset after 2 seconds - track timer for cleanup
+      // Reset after 2 seconds - track timer for cleanup and race condition prevention
       const timerId = setTimeout(() => {
         this.renderer.removeClass(button, 'copied');
         this.setCopyButtonContent(button, false);
         this.activeTimerIds.delete(timerId);
+        this.copyButtonTimers.delete(button);
       }, 2000);
       this.activeTimerIds.add(timerId);
+      this.copyButtonTimers.set(button, timerId);
     } catch (err) {
       console.error('Failed to copy:', err);
       // Show user-facing error feedback
       this.renderer.addClass(button, 'error');
+      this.renderer.removeClass(button, 'copied');
       this.setCopyButtonContent(button, false, true);
 
       // Reset error state after 2 seconds
@@ -332,8 +361,10 @@ export default class BlogPostPage {
         this.renderer.removeClass(button, 'error');
         this.setCopyButtonContent(button, false);
         this.activeTimerIds.delete(timerId);
+        this.copyButtonTimers.delete(button);
       }, 2000);
       this.activeTimerIds.add(timerId);
+      this.copyButtonTimers.set(button, timerId);
     }
   }
 
