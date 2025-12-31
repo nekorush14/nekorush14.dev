@@ -1,1 +1,48 @@
-/* コンポーネント固有のスタイル */
+/* Blog card - M3E minimal design */
+.blog-card {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background-color: var(--color-surface-container);
+  cursor: pointer;
+}
+
+/* Border overlay - renders on top of image */
+.blog-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--color-outline-variant);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.blog-card:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Image container - fixed width */
+.blog-card-image-container {
+  position: relative;
+  flex-shrink: 0;
+  width: 160px;
+  overflow: hidden;
+  background-color: var(--color-surface-container-high);
+}
+
+.blog-card-image {
+  object-fit: cover;
+}
+
+/* Content section */
+.blog-card-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem 1.25rem;
+  min-width: 0;
+}
