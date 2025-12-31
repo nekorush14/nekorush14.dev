@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { RouteMeta } from '@analogjs/router';
 import { injectResponse } from '@analogjs/router/tokens';
@@ -20,7 +21,7 @@ export const routeMeta: RouteMeta = {
 
 @Component({
   selector: 'app-not-found',
-  imports: [RouterLink],
+  imports: [RouterLink, NgOptimizedImage],
   templateUrl: './[...not-found].page.html',
   styleUrl: './[...not-found].page.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
