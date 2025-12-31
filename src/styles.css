@@ -650,6 +650,11 @@
   color: #9ece6a;
 }
 
+.code-copy-btn.error {
+  /* TokyoNight red */
+  color: #f7768e;
+}
+
 .code-copy-btn svg {
   width: 14px;
   height: 14px;

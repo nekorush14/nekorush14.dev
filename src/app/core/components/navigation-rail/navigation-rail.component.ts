@@ -1,6 +1,7 @@
 import {
   Component,
   ChangeDetectionStrategy,
+  computed,
   inject,
   signal,
 } from '@angular/core';
@@ -52,13 +53,29 @@ export class NavigationRailComponent {
     },
   ];
 
-  // Check if a nav item should be active (including additional paths)
-  protected isNavItemActive(item: NavItem): boolean {
+  // Computed signal for active nav item states (reactive pattern)
+  protected readonly activeNavItems = computed(() => {
     const path = this.currentPath();
-    if (item.path === '/' && path === '/') return true;
-    if (item.path !== '/' && path.startsWith(item.path)) return true;
-    if (item.additionalActivePaths?.some((p) => path.startsWith(p))) return true;
-    return false;
+    const activeMap = new Map<string, boolean>();
+
+    for (const item of this.navItems) {
+      let isActive = false;
+      if (item.path === '/' && path === '/') {
+        isActive = true;
+      } else if (item.path !== '/' && path.startsWith(item.path)) {
+        isActive = true;
+      } else if (item.additionalActivePaths?.some((p) => path.startsWith(p))) {
+        isActive = true;
+      }
+      activeMap.set(item.path, isActive);
+    }
+
+    return activeMap;
+  });
+
+  // Helper method to check if nav item is active (uses computed signal internally)
+  protected isNavItemActive(item: NavItem): boolean {
+    return this.activeNavItems().get(item.path) ?? false;
   }
 
   // Track expanded state for mobile
