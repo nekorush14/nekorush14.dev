@@ -676,13 +676,21 @@
   border-top: 1px solid var(--color-outline-variant);
 }
 
-.prose img {
+.prose img:not(.link-card-image):not(.link-card-favicon) {
   margin-top: 2rem;
   margin-bottom: 2rem;
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-md);
   max-width: 100%;
   height: auto;
+}
+
+/* Link card image reset - exclude from prose img styles */
+.prose .link-card-image {
+  margin: 0;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .prose table {

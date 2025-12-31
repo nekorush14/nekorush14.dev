@@ -59,3 +59,126 @@
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
+
+/* Link Card - Embed card for external URLs */
+:host ::ng-deep .link-card {
+  margin: 1.5rem 0;
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-surface-container);
+  overflow: hidden;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+:host ::ng-deep .link-card:hover {
+  border-color: var(--color-outline);
+  box-shadow: var(--shadow-sm);
+}
+
+:host ::ng-deep .link-card-anchor {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+:host ::ng-deep .link-card-anchor:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+:host ::ng-deep .link-card-content {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+:host ::ng-deep .link-card-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+  overflow: hidden;
+}
+
+:host ::ng-deep .link-card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--color-on-surface);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-break: break-word;
+}
+
+:host ::ng-deep .link-card-description {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--color-on-surface-variant);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-break: break-word;
+}
+
+:host ::ng-deep .link-card-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: auto;
+}
+
+:host ::ng-deep .link-card-favicon {
+  width: 16px;
+  height: 16px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+:host ::ng-deep .link-card-site-name {
+  font-size: 0.75rem;
+  color: var(--color-on-surface-variant);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+:host ::ng-deep .link-card-image-container {
+  order: -1;
+  flex-shrink: 0;
+  width: 180px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+:host ::ng-deep .link-card-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Responsive adjustments for link cards */
+@media (max-width: 480px) {
+  :host ::ng-deep .link-card-content {
+    flex-direction: column;
+  }
+
+  :host ::ng-deep .link-card-image-container {
+    width: 100%;
+    height: 160px;
+  }
+
+  :host ::ng-deep .link-card-image {
+    object-fit: cover;
+  }
+}

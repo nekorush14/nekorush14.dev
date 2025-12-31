@@ -62,7 +62,7 @@ export default class BlogPostPage {
           title: `${attrs.title} | nekorush14.dev`,
           description: attrs.description,
           url: `https://nekorush14.dev/blog/${attrs.slug}`,
-          image: attrs.coverImage,
+          image: `https://nekorush14.dev/ogp/blog/${attrs.slug}.png`,
           type: 'article',
         });
 

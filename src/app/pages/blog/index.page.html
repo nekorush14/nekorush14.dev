@@ -8,7 +8,7 @@
     </header>
 
     <ul class="space-y-6">
-      @for (post of posts; track post.slug; let i = $index) {
+      @for (post of posts(); track post.slug; let i = $index) {
         <li
           class="animate-slide-up"
           [style.animation-delay]="i * 50 + 'ms'"

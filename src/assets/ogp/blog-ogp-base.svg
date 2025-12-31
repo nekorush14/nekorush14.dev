@@ -1,0 +1,194 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <!--
+    ============================================
+    BLOG OGP BASE IMAGE - Dynamic Generation
+    ============================================
+    
+    Text Overlay Regions (for Analog.js):
+    
+    [TITLE]
+      Position: x=80, y=180 ~ y=380
+      Max Width: 800px
+      Recommended: 2-3 lines, font-size 48-56px
+      Color: #ffffff
+    
+    [TAGS]
+      Position: x=80, y=480
+      Format: "#tag1  #tag2  #tag3"
+      Recommended: font-size 16-18px
+      Color: #fca605 (メインセカンダリ)
+    
+    [DATE]
+      Position: x=80, y=520
+      Format: "2025.12.21" or "December 21, 2025"
+      Recommended: font-size 14-16px
+      Color: #b1c9ee (補完)
+    
+    [SITE NAME]
+      Position: x=80, y=560
+      Text: "nekorush14.dev"
+      Recommended: font-size 18-20px
+      Color: #a5a6f2 (サブプライマリ)
+    
+    ============================================
+  -->
+  
+  <defs>
+    <!-- 深みのある背景グラデーション -->
+    <linearGradient id="bgDeep" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0e1a"/>
+      <stop offset="50%" style="stop-color:#0f1628"/>
+      <stop offset="100%" style="stop-color:#141d33"/>
+    </linearGradient>
+    
+    <!-- 軌道のグラデーション -->
+    <linearGradient id="orbitArc" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" style="stop-color:#3d62f5;stop-opacity:0.15"/>
+      <stop offset="40%" style="stop-color:#3d62f5"/>
+      <stop offset="80%" style="stop-color:#a5a6f2"/>
+      <stop offset="100%" style="stop-color:#a5a6f2;stop-opacity:0.2"/>
+    </linearGradient>
+    
+    <!-- 流星の軌跡 -->
+    <linearGradient id="meteorTrail" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#fca605;stop-opacity:0"/>
+      <stop offset="50%" style="stop-color:#fca605;stop-opacity:0.7"/>
+      <stop offset="100%" style="stop-color:#fca605"/>
+    </linearGradient>
+    
+    <!-- 星のグロー -->
+    <radialGradient id="starGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#fca605"/>
+      <stop offset="50%" style="stop-color:#fca605;stop-opacity:0.5"/>
+      <stop offset="100%" style="stop-color:#fca605;stop-opacity:0"/>
+    </radialGradient>
+    
+    <!-- 光点のグロー（控えめ） -->
+    <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#b1c9ee;stop-opacity:0.6"/>
+      <stop offset="60%" style="stop-color:#b1c9ee;stop-opacity:0.2"/>
+      <stop offset="100%" style="stop-color:#b1c9ee;stop-opacity:0"/>
+    </radialGradient>
+    
+    <!-- ノイズテクスチャ -->
+    <filter id="noise" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" result="noise"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feBlend in="SourceGraphic" in2="noise" mode="overlay" result="blend"/>
+      <feComposite in="blend" in2="SourceGraphic" operator="in"/>
+    </filter>
+    
+    <!-- グロー効果 -->
+    <filter id="starBrightGlow" x="-150%" y="-150%" width="400%" height="400%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- 4角星シンボル -->
+    <symbol id="star4p" viewBox="0 0 24 24">
+      <path d="M12 0 L13.5 10.5 L24 12 L13.5 13.5 L12 24 L10.5 13.5 L0 12 L10.5 10.5 Z"/>
+    </symbol>
+  </defs>
+  
+  <!-- 深い宇宙の背景 -->
+  <rect width="1200" height="630" fill="url(#bgDeep)"/>
+  
+  <!-- 微細なノイズオーバーレイ -->
+  <rect width="1200" height="630" fill="#ffffff" opacity="0.015" filter="url(#noise)"/>
+  
+  <!-- 背景の微かな光彩 -->
+  <ellipse cx="1000" cy="300" rx="350" ry="400" fill="#3d62f5" opacity="0.05"/>
+  <ellipse cx="100" cy="600" rx="250" ry="150" fill="#a5a6f2" opacity="0.03"/>
+  
+  <!-- 右側の軌道アーク - 縦方向に弧を描く -->
+  <g>
+    <!-- 軌道の残像/グロー -->
+    <path d="M 1100 -50
+             Q 1250 150, 1150 315
+             Q 1050 480, 1200 680" 
+          fill="none" 
+          stroke="#3d62f5" 
+          stroke-width="35" 
+          stroke-linecap="round"
+          opacity="0.06"/>
+    
+    <!-- メイン軌道 -->
+    <path d="M 1100 -50
+             Q 1250 150, 1150 315
+             Q 1050 480, 1200 680" 
+          fill="none" 
+          stroke="url(#orbitArc)" 
+          stroke-width="5" 
+          stroke-linecap="round"/>
+  </g>
+  
+  <!-- 軌道上の光点 -->
+  <g transform="translate(1150, 315)">
+    <circle cx="0" cy="0" r="20" fill="url(#coreGlow)" opacity="0.5"/>
+    <circle cx="0" cy="0" r="5" fill="#b1c9ee" opacity="0.8"/>
+    <circle cx="0" cy="0" r="2.5" fill="#ffffff" opacity="0.9"/>
+  </g>
+  
+  <!-- 流星トレイル -->
+  <g transform="translate(1150, 315) rotate(-50)">
+    <line x1="12" y1="0" x2="160" y2="0" stroke="url(#meteorTrail)" stroke-width="4" stroke-linecap="round"/>
+    <line x1="16" y1="10" x2="110" y2="10" stroke="url(#meteorTrail)" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+    <line x1="20" y1="18" x2="70" y2="18" stroke="url(#meteorTrail)" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+  </g>
+  
+  <!-- 星（メインセカンダリ #fca605） -->
+  <g fill="#fca605">
+    <!-- グロー -->
+    <circle cx="1070" cy="180" r="24" fill="url(#starGlow)"/>
+    <circle cx="1120" cy="450" r="18" fill="url(#starGlow)" opacity="0.6"/>
+    <circle cx="1020" cy="520" r="12" fill="url(#starGlow)" opacity="0.4"/>
+    
+    <!-- 星本体 -->
+    <use href="#star4p" x="1054" y="164" width="32" height="32" filter="url(#starBrightGlow)"/>
+    <use href="#star4p" x="1108" y="438" width="24" height="24" filter="url(#softGlow)"/>
+    <use href="#star4p" x="1010" y="510" width="20" height="20" opacity="0.7"/>
+  </g>
+  
+  <!-- 背景の微かな星屑 -->
+  <g fill="#b1c9ee" opacity="0.2">
+    <circle cx="950" cy="80" r="1.5"/>
+    <circle cx="1080" cy="560" r="1.2"/>
+    <circle cx="900" cy="400" r="1"/>
+    <circle cx="980" cy="600" r="1"/>
+  </g>
+  
+  <!-- 
+    ============================================
+    TEXT OVERLAY GUIDE (この部分は最終的に削除可能)
+    ============================================
+  -->
+  
+  <!-- 左側：テキスト配置ガイド（本番では非表示にする） -->
+  <!-- 
+  <g opacity="0.3" stroke="#ffffff" stroke-width="1" fill="none" stroke-dasharray="4,4">
+    <rect x="80" y="120" width="800" height="280" rx="4"/>
+    <text x="85" y="115" font-size="10" fill="#ffffff">TITLE AREA (80, 120) - 800x280</text>
+    
+    <rect x="80" y="460" width="400" height="30" rx="4"/>
+    <text x="85" y="455" font-size="10" fill="#ffffff">TAGS (80, 460)</text>
+    
+    <rect x="80" y="500" width="200" height="25" rx="4"/>
+    <text x="85" y="495" font-size="10" fill="#ffffff">DATE (80, 500)</text>
+    
+    <rect x="80" y="540" width="200" height="30" rx="4"/>
+    <text x="85" y="535" font-size="10" fill="#ffffff">SITE NAME (80, 540)</text>
+  </g>
+  -->
+  
+  <!-- 左下の装飾ライン - メインプライマリ -->
+  <line x1="80" y1="590" x2="180" y2="590" stroke="#3d62f5" stroke-width="2" opacity="0.4"/>
+  
+</svg>
