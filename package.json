@@ -9,7 +9,7 @@
     "ng": "ng",
     "dev": "vite --force",
     "start": "npm run dev",
-    "build": "vite build",
+    "build": "vite build && node scripts/copy-raw-markdown.mjs",
     "watch": "vite build --watch",
     "test": "vitest",
     "lint": "ng lint",
