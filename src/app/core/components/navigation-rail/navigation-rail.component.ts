@@ -34,7 +34,6 @@ export class NavigationRailComponent {
       path: '/blog',
       label: 'Blog',
       icon: 'article',
-      disabled: true,
     },
   ];
 
