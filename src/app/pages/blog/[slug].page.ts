@@ -1,4 +1,4 @@
-import { Component, effect, inject, PLATFORM_ID } from '@angular/core';
+import { Component, DestroyRef, effect, inject, PLATFORM_ID } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { AsyncPipe, DatePipe, DOCUMENT, isPlatformBrowser } from '@angular/common';
@@ -16,6 +16,10 @@ export default class BlogPostPage {
   private readonly document = inject(DOCUMENT);
   private readonly platformId = inject(PLATFORM_ID);
   private readonly ogpService = inject(OgpService);
+  private readonly destroyRef = inject(DestroyRef);
+
+  // Track cleanup functions for event listeners
+  private readonly cleanupFns: (() => void)[] = [];
 
   readonly post$ = injectContent<PostAttributes>({
     param: 'slug',
@@ -25,6 +29,12 @@ export default class BlogPostPage {
   private readonly post = toSignal(this.post$);
 
   constructor() {
+    // Register cleanup on component destroy
+    this.destroyRef.onDestroy(() => {
+      this.cleanupFns.forEach((fn) => fn());
+      this.cleanupFns.length = 0;
+    });
+
     // Set OGP metadata and enhance content when post data changes
     effect(() => {
       const post = this.post();
@@ -83,10 +93,16 @@ export default class BlogPostPage {
     });
 
     // Fallback timeout to prevent infinite observation
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       observer.disconnect();
       checkAndEnhance();
     }, 3000);
+
+    // Register cleanup for observer and timeout
+    this.cleanupFns.push(() => {
+      clearTimeout(timeoutId);
+      observer.disconnect();
+    });
   }
 
   private generateTableOfContents(): void {
@@ -153,11 +169,17 @@ export default class BlogPostPage {
       link.textContent = item.text;
       link.setAttribute('data-target', item.id);
 
-      link.addEventListener('click', () => {
+      const clickHandler = () => {
         const target = this.document.getElementById(item.id);
         if (target) {
           target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
+      };
+      link.addEventListener('click', clickHandler);
+
+      // Register cleanup for event listener
+      this.cleanupFns.push(() => {
+        link.removeEventListener('click', clickHandler);
       });
 
       li.appendChild(link);
@@ -217,7 +239,13 @@ export default class BlogPostPage {
         </svg>
         <span>Copy</span>
       `;
-      copyBtn.addEventListener('click', () => this.handleCopy(pre, copyBtn));
+      const copyHandler = () => this.handleCopy(pre, copyBtn);
+      copyBtn.addEventListener('click', copyHandler);
+
+      // Register cleanup for event listener
+      this.cleanupFns.push(() => {
+        copyBtn.removeEventListener('click', copyHandler);
+      });
 
       header.appendChild(langLabel);
       header.appendChild(copyBtn);

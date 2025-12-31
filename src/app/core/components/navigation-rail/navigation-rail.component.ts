@@ -4,9 +4,9 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { map } from 'rxjs';
+import { filter, map } from 'rxjs';
 import { ThemeService } from '../../services/theme.service';
 
 interface NavItem {
@@ -29,9 +29,12 @@ export class NavigationRailComponent {
   protected readonly themeService = inject(ThemeService);
   private readonly router = inject(Router);
 
-  // Current URL path
+  // Current URL path (only update on actual navigation completion)
   private readonly currentPath = toSignal(
-    this.router.events.pipe(map(() => this.router.url.split('?')[0])),
+    this.router.events.pipe(
+      filter((event): event is NavigationEnd => event instanceof NavigationEnd),
+      map(() => this.router.url.split('?')[0])
+    ),
     { initialValue: this.router.url.split('?')[0] }
   );
 

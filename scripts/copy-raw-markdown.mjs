@@ -37,9 +37,11 @@ async function copyRawMarkdownFiles() {
 
       // Parse front matter to extract slug
       const parsed = fm(content);
-      const slug = parsed.attributes.slug;
+      /** @type {{ slug?: string }} */
+      const attributes = parsed.attributes;
+      const slug = attributes?.slug;
 
-      if (!slug) {
+      if (!slug || typeof slug !== 'string') {
         console.warn(`  Skipping ${file}: no slug found in front matter`);
         continue;
       }
