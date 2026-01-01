@@ -132,21 +132,21 @@
     --color-tertiary: oklch(0.75 0.15 300);
     --color-on-tertiary: oklch(0.15 0.06 300);
 
-    /* Surface - Dark blue background */
-    --color-surface: #0d0f17;
-    --color-surface-dim: #080a10;
-    --color-surface-bright: #161a24;
-    --color-surface-container: #12141c;
-    --color-surface-container-low: #0f1118;
-    --color-surface-container-high: #181b25;
+    /* Surface - Dark blue background (#0d0f17) */
+    --color-surface: oklch(0.1703 0.017 273.58);
+    --color-surface-dim: oklch(0.12 0.014 273.58);
+    --color-surface-bright: oklch(0.22 0.02 273.58);
+    --color-surface-container: oklch(0.19 0.018 273.58);
+    --color-surface-container-low: oklch(0.18 0.017 273.58);
+    --color-surface-container-high: oklch(0.21 0.019 273.58);
 
     /* On Surface - High contrast for readability */
-    --color-on-surface: #c0caf5;
-    --color-on-surface-variant: #9aa5ce;
+    --color-on-surface: oklch(0.85 0.06 274);
+    --color-on-surface-variant: oklch(0.73 0.045 274);
 
     /* Outline - Neutral borders */
-    --color-outline: #565f89;
-    --color-outline-variant: #414868;
+    --color-outline: oklch(0.50 0.04 274);
+    --color-outline-variant: oklch(0.40 0.035 274);
 
     /* Shadows (deeper for dark background) */
     --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.3);
@@ -172,21 +172,21 @@
   --color-tertiary: oklch(0.75 0.15 300);
   --color-on-tertiary: oklch(0.15 0.06 300);
 
-  /* Surface - Dark blue background */
-  --color-surface: #0d0f17;
-  --color-surface-dim: #080a10;
-  --color-surface-bright: #161a24;
-  --color-surface-container: #12141c;
-  --color-surface-container-low: #0f1118;
-  --color-surface-container-high: #181b25;
+  /* Surface - Dark blue background (#0d0f17) */
+  --color-surface: oklch(0.1703 0.017 273.58);
+  --color-surface-dim: oklch(0.12 0.014 273.58);
+  --color-surface-bright: oklch(0.22 0.02 273.58);
+  --color-surface-container: oklch(0.19 0.018 273.58);
+  --color-surface-container-low: oklch(0.18 0.017 273.58);
+  --color-surface-container-high: oklch(0.21 0.019 273.58);
 
   /* On Surface - High contrast for readability */
-  --color-on-surface: #c0caf5;
-  --color-on-surface-variant: #9aa5ce;
+  --color-on-surface: oklch(0.85 0.06 274);
+  --color-on-surface-variant: oklch(0.73 0.045 274);
 
   /* Outline - Neutral borders */
-  --color-outline: #565f89;
-  --color-outline-variant: #414868;
+  --color-outline: oklch(0.50 0.04 274);
+  --color-outline-variant: oklch(0.40 0.035 274);
 
   /* Shadows (deeper for dark background) */
   --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.3);

@@ -193,11 +193,3 @@
     0 0 0 4px var(--color-primary);
 }
 
-/* Icon animation on hover */
-.social-link svg {
-  transition: transform var(--duration-fast) var(--ease-spring);
-}
-
-.social-link:hover svg {
-  transform: scale(1.1);
-}
