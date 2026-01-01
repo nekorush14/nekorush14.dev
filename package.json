@@ -35,7 +35,7 @@
     "@fortawesome/free-brands-svg-icons": "7.1.0",
     "@tailwindcss/vite": "^4.1.4",
     "front-matter": "^4.0.2",
-    "marked": "^15.0.7",
+    "marked": "^17.0.0",
     "marked-gfm-heading-id": "^4.1.1",
     "marked-highlight": "^2.2.1",
     "marked-mangle": "^1.1.10",
