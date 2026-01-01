@@ -132,23 +132,23 @@
     --color-tertiary: oklch(0.75 0.15 300);
     --color-on-tertiary: oklch(0.15 0.06 300);
 
-    /* Surface - Base: #121211 → oklch(0.09 0.005 90) */
-    --color-surface: oklch(0.09 0.005 90);
-    --color-surface-dim: oklch(0.06 0.003 90);
-    --color-surface-bright: oklch(0.16 0.008 90);
-    --color-surface-container: oklch(0.12 0.006 90);
-    --color-surface-container-low: oklch(0.10 0.005 90);
-    --color-surface-container-high: oklch(0.14 0.007 90);
+    /* Surface - Dark blue background */
+    --color-surface: #0d0f17;
+    --color-surface-dim: #080a10;
+    --color-surface-bright: #161a24;
+    --color-surface-container: #12141c;
+    --color-surface-container-low: #0f1118;
+    --color-surface-container-high: #181b25;
 
     /* On Surface - High contrast for readability */
-    --color-on-surface: oklch(0.95 0.01 90);
-    --color-on-surface-variant: oklch(0.75 0.02 90);
+    --color-on-surface: #c0caf5;
+    --color-on-surface-variant: #9aa5ce;
 
     /* Outline - Neutral borders */
-    --color-outline: oklch(0.45 0.02 90);
-    --color-outline-variant: oklch(0.28 0.01 90);
+    --color-outline: #565f89;
+    --color-outline-variant: #414868;
 
-    /* Shadows (deeper for dark violet background) */
+    /* Shadows (deeper for dark background) */
     --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.3);
     --shadow-md: 0 4px 6px oklch(0 0 0 / 0.35), 0 2px 4px oklch(0 0 0 / 0.2);
     --shadow-lg: 0 10px 15px oklch(0 0 0 / 0.4), 0 4px 6px oklch(0 0 0 / 0.25);
@@ -172,23 +172,23 @@
   --color-tertiary: oklch(0.75 0.15 300);
   --color-on-tertiary: oklch(0.15 0.06 300);
 
-  /* Surface - Base: #121211 → oklch(0.09 0.005 90) */
-  --color-surface: oklch(0.09 0.005 90);
-  --color-surface-dim: oklch(0.06 0.003 90);
-  --color-surface-bright: oklch(0.16 0.008 90);
-  --color-surface-container: oklch(0.12 0.006 90);
-  --color-surface-container-low: oklch(0.10 0.005 90);
-  --color-surface-container-high: oklch(0.14 0.007 90);
+  /* Surface - Dark blue background */
+  --color-surface: #0d0f17;
+  --color-surface-dim: #080a10;
+  --color-surface-bright: #161a24;
+  --color-surface-container: #12141c;
+  --color-surface-container-low: #0f1118;
+  --color-surface-container-high: #181b25;
 
   /* On Surface - High contrast for readability */
-  --color-on-surface: oklch(0.95 0.01 90);
-  --color-on-surface-variant: oklch(0.75 0.02 90);
+  --color-on-surface: #c0caf5;
+  --color-on-surface-variant: #9aa5ce;
 
   /* Outline - Neutral borders */
-  --color-outline: oklch(0.45 0.02 90);
-  --color-outline-variant: oklch(0.28 0.01 90);
+  --color-outline: #565f89;
+  --color-outline-variant: #414868;
 
-  /* Shadows (deeper for dark violet background) */
+  /* Shadows (deeper for dark background) */
   --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.3);
   --shadow-md: 0 4px 6px oklch(0 0 0 / 0.35), 0 2px 4px oklch(0 0 0 / 0.2);
   --shadow-lg: 0 10px 15px oklch(0 0 0 / 0.4), 0 4px 6px oklch(0 0 0 / 0.25);
