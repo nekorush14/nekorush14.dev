@@ -9,6 +9,9 @@ on:
       - main
     types: [opened, synchronize, reopened, labeled]
 
+permissions:
+  contents: read
+
 concurrency:
   group: deploy-${{ github.ref }}
   cancel-in-progress: true
