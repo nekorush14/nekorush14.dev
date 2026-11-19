@@ -130,26 +130,33 @@ function parseOgpFromHtml(html, url) {
   const faviconMatch = html.match(
     /<link[^>]*rel=["'](?:icon|shortcut icon)["'][^>]*href=["']([^"']*)["']/i
   );
-  if (faviconMatch) {
-    try {
-      result.favicon = new URL(faviconMatch[1], url).href;
-    } catch {
-      result.favicon = faviconMatch[1];
-    }
-  } else {
-    result.favicon = new URL('/favicon.ico', url).href;
-  }
+  result.favicon =
+    toHttpUrl(faviconMatch?.[1], url) || toHttpUrl('/favicon.ico', url);
 
   // Resolve relative image URLs
-  if (result.image && !result.image.startsWith('http')) {
-    try {
-      result.image = new URL(result.image, url).href;
-    } catch {
-      // Keep as-is
-    }
-  }
+  result.image = toHttpUrl(result.image, url);
 
   return result;
+}
+
+/**
+ * Resolve a URL found in a fetched page against its base URL.
+ * Returns an empty string unless the result is an http(s) URL, so values such
+ * as `javascript:` or `data:` from third-party pages never reach the output.
+ * @param {string | undefined} value
+ * @param {string} base
+ * @returns {string}
+ */
+function toHttpUrl(value, base) {
+  if (!value) return '';
+  try {
+    const resolved = new URL(value, base);
+    return resolved.protocol === 'http:' || resolved.protocol === 'https:'
+      ? resolved.href
+      : '';
+  } catch {
+    return '';
+  }
 }
 
 /**
